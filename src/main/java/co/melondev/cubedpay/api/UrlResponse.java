@@ -1,11 +1,9 @@
 package co.melondev.cubedpay.api;
 
-import java.io.InputStream;
-
 public class UrlResponse {
 
     private int responseCode = 0;
-    private InputStream inputStream;
+    private String responseMessage;
 
     private String exceptionMessage = "";
 
@@ -17,12 +15,12 @@ public class UrlResponse {
         this.responseCode = responseCode;
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
     public String getExceptionMessage() {
