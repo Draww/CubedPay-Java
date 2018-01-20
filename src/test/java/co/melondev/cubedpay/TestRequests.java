@@ -1,6 +1,7 @@
 package co.melondev.cubedpay;
 
-import co.melondev.cubedpay.api.objects.BaseReturnObject;
+import co.melondev.cubedpay.api.objects.BaseBadRequest;
+import co.melondev.cubedpay.api.objects.BaseReturn;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,12 +16,13 @@ public class TestRequests {
     public static void main(String[] args) {
         print("Before 1");
         cubedPay.getRequests().get("http://api.test.cubedpay.com/", response -> {
-            print("Response2: " + response.getResponseCode());
-            if (!response.getResponseMessage().isEmpty()) {
-                BaseReturnObject test = cubedPay.getJackson().getBaseReturn(response.getResponseMessage());
-                print("Success: " + test. didSucceed());
-                print("Return code: " + test. getReturn().getCode());
-                print("Return message: " + test. getReturn().getMessage());
+            String message = response.getResponseMessage();
+            if (!message.isEmpty()) {
+                BaseReturn baseReturn = cubedPay.getJackson().getReturn(message);
+                if (!baseReturn.isSuccess()) {
+                    BaseBadRequest baseBadRequest = cubedPay.getJackson().getBadRequest(message);
+                    print(baseBadRequest.getReturn().getMessage());
+                }
             }
             if (!response.getExceptionMessage().isEmpty()) print("Error: " + response.getExceptionMessage());
         });

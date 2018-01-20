@@ -1,6 +1,7 @@
 package co.melondev.cubedpay;
 
-import co.melondev.cubedpay.api.objects.BaseReturnObject;
+import co.melondev.cubedpay.api.objects.BaseBadRequest;
+import co.melondev.cubedpay.api.objects.BaseReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
@@ -11,7 +12,8 @@ public class JacksonUtils {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     // Readers
-    private final ObjectReader baseReturnReader = mapper.readerFor(BaseReturnObject.class);
+    private final ObjectReader baseReturn = mapper.readerFor(BaseReturn.class);
+    private final ObjectReader badRequest = mapper.readerFor(BaseBadRequest.class);
 
     /**
      * Gets a base return object from a json string.
@@ -19,13 +21,27 @@ public class JacksonUtils {
      * @param value the value
      * @return the base return object.
      */
-    public BaseReturnObject getBaseReturn(String value) {
+    public BaseReturn getReturn(String value) {
         try {
-            return baseReturnReader.readValue(value);
+            return baseReturn.readValue(value);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new BaseReturn();
         }
-        return new BaseReturnObject();
+    }
+
+
+    /**
+     * Gets a bad request object from a json string.
+     *
+     * @param value the value
+     * @return the base return object.
+     */
+    public BaseBadRequest getBadRequest(String value) {
+        try {
+            return badRequest.readValue(value);
+        } catch (IOException e) {
+            return new BaseBadRequest();
+        }
     }
 
     public static ObjectMapper getMapper() {
