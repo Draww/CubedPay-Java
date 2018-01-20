@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class JacksonUtils {
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     // Readers
     private final ObjectReader baseReturnReader = mapper.readerFor(BaseReturnObject.class);
@@ -26,5 +26,9 @@ public class JacksonUtils {
             e.printStackTrace();
         }
         return new BaseReturnObject();
+    }
+
+    public static ObjectMapper getMapper() {
+        return mapper;
     }
 }

@@ -1,6 +1,7 @@
 package co.melondev.cubedpay.api;
 
 import co.melondev.cubedpay.Callback;
+import co.melondev.cubedpay.JacksonUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -64,7 +65,7 @@ public class UrlRequests {
             if (type != ResponseType.GET && data != null) {
                 connection.setDoOutput(true);
                 OutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-                outputStream.write(writeValueAsBytes(data));
+                outputStream.write(JacksonUtils.getMapper().writeValueAsBytes(data));
                 outputStream.flush();
                 outputStream.close();
             }
@@ -85,21 +86,6 @@ public class UrlRequests {
             urlResponse.setExceptionMessage(getStackTrace(e));
         }
         response.callback(urlResponse);
-    }
-
-    /**
-     * Will convert a object to a byte array.
-     *
-     * @param object the object
-     * @return a byte array of the object.
-     */
-    private byte[] writeValueAsBytes(Object object) {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutput out = new ObjectOutputStream(bos)) {
-            out.writeObject(object);
-            return bos.toByteArray();
-        } catch (IOException ignored) {
-        }
-        return new byte[]{};
     }
 
     /**
