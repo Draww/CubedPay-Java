@@ -3,7 +3,7 @@ package co.melondev.cubedpay.api;
 public class UrlResponse {
 
     private int responseCode = 0;
-    private String responseMessage;
+    private String responseMessage = "";
 
     private String exceptionMessage = "";
 
