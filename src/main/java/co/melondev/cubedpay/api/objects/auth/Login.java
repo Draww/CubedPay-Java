@@ -2,8 +2,13 @@ package co.melondev.cubedpay.api.objects.auth;
 
 import co.melondev.cubedpay.api.objects.Base;
 import co.melondev.cubedpay.api.objects.BaseDateInfo;
+import co.melondev.cubedpay.api.objects.BaseExpires;
+import co.melondev.cubedpay.api.objects.BaseLinks;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Login extends Base {
@@ -62,11 +67,12 @@ public class Login extends Base {
             private boolean status = false;
 
             // String array? null?
-            private String[] granted_scopes = {};
+            @JsonProperty("granted_scopes")
+            private List<String> grantedScopes = new ArrayList<>();
 
-            private LoginReturnExpired expires = new LoginReturnExpired();
+            private BaseExpires expires = new BaseExpires();
 
-            private LoginReturnLinks links = new LoginReturnLinks();
+            private BaseLinks links = new BaseLinks();
 
             public String getOauthToken() {
                 return oauthToken;
@@ -84,42 +90,16 @@ public class Login extends Base {
                 return status;
             }
 
-            public String[] getGrantedScopes() {
-                return granted_scopes;
+            public List<String> getGrantedScopes() {
+                return grantedScopes;
             }
 
-            public LoginReturnExpired getExpires() {
+            public BaseExpires getExpires() {
                 return expires;
             }
 
-            public LoginReturnLinks getLinks() {
+            public BaseLinks getLinks() {
                 return links;
-            }
-
-            @JsonIgnoreProperties(ignoreUnknown = true)
-            public class LoginReturnExpired {
-
-                private int in = 0;
-
-                private BaseDateInfo on = new BaseDateInfo();
-
-                public int getIn() {
-                    return in;
-                }
-
-                public BaseDateInfo getOn() {
-                    return on;
-                }
-            }
-
-            @JsonIgnoreProperties(ignoreUnknown = true)
-            public class LoginReturnLinks {
-
-                private String refresh = "";
-
-                public String getRefresh() {
-                    return refresh;
-                }
             }
         }
     }
