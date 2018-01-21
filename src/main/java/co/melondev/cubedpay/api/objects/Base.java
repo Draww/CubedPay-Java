@@ -8,7 +8,7 @@ public class Base {
 
     private final String appID;
 
-    Base(String appID) {
+    public Base(String appID) {
         this.appID = appID;
     }
 

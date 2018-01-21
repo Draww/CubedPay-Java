@@ -7,14 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BaseBadRequest extends BaseReturn {
 
     @JsonProperty("return")
-    private BadRequestReturn returnObj = new BadRequestReturn();
+    private BadRequestReturn returnObject = new BadRequestReturn();
 
     public BadRequestReturn getReturn() {
-        return returnObj;
+        return returnObject;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public class BadRequestReturn {
+
         private int code = 0;
 
         private String message = "";
