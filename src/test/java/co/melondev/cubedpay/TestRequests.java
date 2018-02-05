@@ -30,11 +30,6 @@ public class TestRequests {
     }
 
     private static void print(String message) {
-        System.out.println(getCurrentTime() + " > " + message);
-    }
-
-    private static String getCurrentTime() {
-        Date date = new Date();
-        return dateFormat.format(date);
+        System.out.println(dateFormat.format(new Date()) + " > " + message);
     }
 }
