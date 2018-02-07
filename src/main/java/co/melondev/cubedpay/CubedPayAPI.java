@@ -1,16 +1,13 @@
 package co.melondev.cubedpay;
 
 import co.melondev.cubedpay.data.User;
-import co.melondev.cubedpay.util.APISuccessTransformerConverterFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.java8.Java8CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.http.*;
 
 import java.lang.annotation.Annotation;
@@ -37,7 +34,7 @@ public interface CubedPayAPI {
                         return super.responseBodyConverter(type, annotations, retrofit);
                     }
                 })
-                .addConverterFactory(new APISuccessTransformerConverterFactory(JacksonConverterFactory.create()))
+                .addConverterFactory(new APIEnvelopeTransformerConverterFactory(GsonConverterFactory.create()))
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
