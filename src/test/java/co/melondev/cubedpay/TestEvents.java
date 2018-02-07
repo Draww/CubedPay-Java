@@ -21,7 +21,7 @@ public class TestEvents {
     }
 
     public static void main(String[] args) {
-        CubedPay.addEventHandler(new EventTester());
-        CubedPay.callEvent(new PurchasedEvent(UUID.randomUUID(), 0));
+        CubedPayOld.addEventHandler(new EventTester());
+        CubedPayOld.callEvent(new PurchasedEvent(UUID.randomUUID(), 0));
     }
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class TestRequests {
 
-    private static CubedPay cubedPay = new CubedPay();
+    private static CubedPayOld cubedPay = new CubedPayOld();
 
     private static final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
 
