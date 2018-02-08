@@ -78,7 +78,7 @@ public interface CubedPayAPI {
     default void shutdown() throws InterruptedException {
         Dispatcher dispatcher = DispatcherMap.dispatcherMap.remove(this);
         dispatcher.cancelAll();
-        dispatcher.executorService().shutdownNow();
+        dispatcher.executorService().shutdown();
         dispatcher.executorService().awaitTermination(10, TimeUnit.SECONDS);
     }
 
