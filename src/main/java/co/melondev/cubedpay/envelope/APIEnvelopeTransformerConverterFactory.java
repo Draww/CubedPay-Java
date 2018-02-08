@@ -1,5 +1,6 @@
 package co.melondev.cubedpay.envelope;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Converter.Factory;
@@ -13,14 +14,24 @@ import java.lang.reflect.Type;
  */
 public class APIEnvelopeTransformerConverterFactory extends Factory {
 
-    private Factory superConverter;
+    private Factory delegateConverterFactory;
 
-    public APIEnvelopeTransformerConverterFactory(Factory superConverter) {
-        this.superConverter = superConverter;
+    public APIEnvelopeTransformerConverterFactory(Factory delegateConverterFactory) {
+        this.delegateConverterFactory = delegateConverterFactory;
     }
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        return new ADIEnvelopeTransformerConverter(superConverter.responseBodyConverter(type, annotations, retrofit));
+        return new APIEnvelopeTransformerConverter(delegateConverterFactory.responseBodyConverter(type, annotations, retrofit));
+    }
+
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegateConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
+
+    @Override
+    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        return delegateConverterFactory.stringConverter(type, annotations, retrofit);
     }
 }
