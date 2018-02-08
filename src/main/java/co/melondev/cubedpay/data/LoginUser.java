@@ -15,7 +15,7 @@ public class LoginUser {
     private String refresh_token = "";
 
     private Date last_used = new Date();
-    private boolean status = false;
+    private String status = "";
     private List<String> granted_scopes = new ArrayList<>();
 
     private Expires expires = new Expires();
@@ -33,7 +33,7 @@ public class LoginUser {
         return last_used;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 

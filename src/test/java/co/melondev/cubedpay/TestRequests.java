@@ -7,9 +7,13 @@ public class TestRequests {
     private static String appID = "";
 
     public static void main(String[] args) {
-        CubedPayAPI cubedPayAPI = CubedPayAPI.create("", appID);
+        CubedPayAPI cubedPayAPI = CubedPayAPI.create(appID);
         cubedPayAPI.login(username, password, "localhost", "java").thenAccept(loginUser -> {
-            System.out.println("A " + loginUser.getOAuthToken());
+            cubedPayAPI.data.setOAuth(loginUser.getOAuthToken());
+
+            cubedPayAPI.refresh().thenAccept(refreshUser -> {
+                cubedPayAPI.data.setOAuth(refreshUser.getOAuthToken());
+            });
         });
     }
 }

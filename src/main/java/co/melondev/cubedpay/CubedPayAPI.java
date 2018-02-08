@@ -22,11 +22,14 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface CubedPayAPI {
 
-    static CubedPayAPI create(String apiToken, String appID) {
-        return create(apiToken, appID, "https://api.cubedpay.com");
+    CubedPayStaticData data = new CubedPayStaticData();
+
+    static CubedPayAPI create(String appID) {
+        return create(appID, "https://api.cubedpay.com");
     }
 
-    static CubedPayAPI create(String apiToken, String appID, String apiUrl) {
+    static CubedPayAPI create(String appID, String apiUrl) {
+        data.setAppID(appID);
         return new Retrofit.Builder()
                 .baseUrl(apiUrl)
                 .addConverterFactory(new Converter.Factory() {
@@ -39,8 +42,8 @@ public interface CubedPayAPI {
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
-                                .addHeader("app-id", appID)
-                                .url(chain.request().url().newBuilder().addQueryParameter("access_token", apiToken).build())
+                                .addHeader("app-id", data.getAppID())
+                                .url(chain.request().url().newBuilder().addQueryParameter("access_token", data.getOAuth()).build())
                                 .build()))
                         .build())
                 .build().create(CubedPayAPI.class);
@@ -53,7 +56,7 @@ public interface CubedPayAPI {
     CompletableFuture<LoginUser> login(@Query("username") String username, @Query("password") String password, @Query("ip") String ip, @Query("fingerprint") String fingerprint);
 
     @POST("/oauth/refresh")
-    CompletableFuture<LoginUser> refresh(@Query("access_token") String accessToken);
+    CompletableFuture<LoginUser> refresh();
 
     @GET("/shop/?page={page}&perpage={perpage}")
     CompletableFuture<List<String>> getShops(@Query("page") int page, @Query("perpage") int perpage);
