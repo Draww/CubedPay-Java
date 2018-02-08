@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public interface CubedPayAPI {
 
     public static CubedPayAPI create(String apiToken, String appId) {
-        return create(apiToken, "https://api.cubedpay.com");
+        return create(apiToken, appId, "https://api.cubedpay.com");
     }
 
     public static CubedPayAPI create(String apiToken, String appID, String apiUrl) {
