@@ -12,12 +12,12 @@ import java.io.IOException;
 /**
  * @author theminecoder
  */
-public class ADIEnvelopeTransformerConverter<T> implements Converter<ResponseBody, T> {
+public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBody, T> {
 
     private static Gson gson = new Gson();
     private Converter<ResponseBody, T> delegateConverter;
 
-    public ADIEnvelopeTransformerConverter(Converter<ResponseBody, T> delegateConverter) {
+    public APIEnvelopeTransformerConverter(Converter<ResponseBody, T> delegateConverter) {
         this.delegateConverter = delegateConverter;
     }
 
