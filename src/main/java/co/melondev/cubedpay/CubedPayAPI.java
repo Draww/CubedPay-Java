@@ -76,7 +76,7 @@ public interface CubedPayAPI {
     CompletableFuture<String> requestPayment(@Query("shop_id") int shopId, @Query("items") Map<String, Double> items, @Query("amount") double amount, @Query("type") String type);
 
     default void shutdown() throws InterruptedException {
-        Dispatcher dispatcher = DispatcherMap.dispatcherMap.get(this);
+        Dispatcher dispatcher = DispatcherMap.dispatcherMap.remove(this);
         dispatcher.cancelAll();
         dispatcher.executorService().shutdownNow();
         dispatcher.executorService().awaitTermination(10, TimeUnit.SECONDS);
