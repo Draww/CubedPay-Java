@@ -17,6 +17,4 @@ public class CubedPayException extends IOException {
     public int getCode() {
         return code;
     }
-
-
 }

@@ -3,8 +3,6 @@ package co.melondev.cubedpay;
 import co.melondev.cubedpay.event.PaymentHandler;
 import co.melondev.cubedpay.event.PurchasedEvent;
 
-import java.util.UUID;
-
 public class TestEvents {
 
     public static class EventTester {
@@ -21,7 +19,7 @@ public class TestEvents {
     }
 
     public static void main(String[] args) {
-        CubedPayOld.addEventHandler(new EventTester());
-        CubedPayOld.callEvent(new PurchasedEvent(UUID.randomUUID(), 0));
+        //CubedPayOld.addEventHandler(new EventTester());
+        //CubedPayOld.callEvent(new PurchasedEvent(UUID.randomUUID(), 0));
     }
 }

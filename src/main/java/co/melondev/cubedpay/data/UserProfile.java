@@ -1,5 +1,6 @@
 package co.melondev.cubedpay.data;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,9 +8,9 @@ import java.util.Map;
  */
 public class UserProfile {
 
-    private String id;
-    private String game;
-    private String externalId;
-    private Map<String, Object> data;
+    private String id = "";
+    private String game = "";
+    private String externalId = "";
+    private Map<String, Object> data = new HashMap<>();
 
 }

@@ -1,5 +1,6 @@
 package co.melondev.cubedpay;
 
+import co.melondev.cubedpay.data.LoginUser;
 import co.melondev.cubedpay.data.User;
 import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
 import okhttp3.OkHttpClient;
@@ -21,11 +22,11 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface CubedPayAPI {
 
-    public static CubedPayAPI create(String apiToken, String appId) {
-        return create(apiToken, "https://api.cubedpay.com");
+    static CubedPayAPI create(String apiToken, String appID) {
+        return create(apiToken, appID, "https://api.cubedpay.com");
     }
 
-    public static CubedPayAPI create(String apiToken, String appID, String apiUrl) {
+    static CubedPayAPI create(String apiToken, String appID, String apiUrl) {
         return new Retrofit.Builder()
                 .baseUrl(apiUrl)
                 .addConverterFactory(new Converter.Factory() {
@@ -38,7 +39,7 @@ public interface CubedPayAPI {
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
-                                .addHeader("App-ID", appID)
+                                .addHeader("app-id", appID)
                                 .url(chain.request().url().newBuilder().addQueryParameter("access_token", apiToken).build())
                                 .build()))
                         .build())
@@ -48,10 +49,16 @@ public interface CubedPayAPI {
     @GET("/user")
     CompletableFuture<User> getCurrentUser();
 
-    @GET("/v1/shop/?page={page}&perpage={perpage}")
+    @POST("/auth/basic")
+    CompletableFuture<LoginUser> login(@Query("username") String username, @Query("password") String password, @Query("ip") String ip, @Query("fingerprint") String fingerprint);
+
+    @POST("/oauth/refresh")
+    CompletableFuture<LoginUser> refresh(@Query("access_token") String accessToken);
+
+    @GET("/shop/?page={page}&perpage={perpage}")
     CompletableFuture<List<String>> getShops(@Query("page") int page, @Query("perpage") int perpage);
 
-    @GET("/v1/payment/request")
+    @GET("/payment/request")
     CompletableFuture<String> requestPayment(@Query("shop_id") int shopId, @Query("items") Map<String, Double> items, @Query("amount") double amount, @Query("type") String type);
 
 }

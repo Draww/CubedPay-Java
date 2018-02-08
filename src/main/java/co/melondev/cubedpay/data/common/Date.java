@@ -1,20 +1,16 @@
-package co.melondev.cubedpay.api.objects;
+package co.melondev.cubedpay.data.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseDateInfo {
+/**
+ * @author Clutch
+ * @since 2/7/2018
+ */
+public class Date {
 
     private int numeric = 0;
-
     private String timestamp = "";
-
     private String datetime = "";
-
     private String date = "";
-
     private String relative = "";
-
     private String timezone = "";
 
     public int getNumeric() {
@@ -36,6 +32,7 @@ public class BaseDateInfo {
     public String getRelative() {
         return relative;
     }
+
     public String getTimezone() {
         return timezone;
     }
