@@ -1,5 +1,7 @@
 package co.melondev.cubedpay;
 
+import java.util.Arrays;
+
 public class TestRequests {
 
     private static String username = "";
@@ -8,12 +10,14 @@ public class TestRequests {
 
     public static void main(String[] args) {
         CubedPayAPI cubedPayAPI = CubedPayAPI.create(appID);
-        cubedPayAPI.login(username, password, "localhost", "java").thenAccept(loginUser -> {
+        final String[] oauthToken = {""};
+        cubedPayAPI.requestOAuth(Arrays.asList("oauth", "user-manage")).thenAccept(oauth -> {
+            oauthToken[0] = oauth.getToken();
+        }).thenCompose(oauth -> cubedPayAPI.getAccessToken(oauthToken[0]).thenAccept(loginUser -> {
             cubedPayAPI.data.setOAuth(loginUser.getOAuthToken());
-
-            cubedPayAPI.refresh().thenAccept(refreshUser -> {
-                cubedPayAPI.data.setOAuth(refreshUser.getOAuthToken());
-            });
+        })).exceptionally(e -> {
+            e.printStackTrace();
+            return null;
         });
     }
 }
