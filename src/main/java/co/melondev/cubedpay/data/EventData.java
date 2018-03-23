@@ -1,10 +1,12 @@
 package co.melondev.cubedpay.data;
 
+import co.melondev.cubedpay.data.common.Date;
+
 public class EventData {
 
     private int id = 0;
     private EventObject obj = new EventObject();
-    private String accepted = "";
+    private Date accepted = new Date();
 
     public int getId() {
         return id;
@@ -14,7 +16,7 @@ public class EventData {
         return obj;
     }
 
-    public String getAccepted() {
+    public Date getAccepted() {
         return accepted;
     }
 }
