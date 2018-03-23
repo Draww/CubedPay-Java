@@ -1,23 +1,23 @@
 package co.melondev.cubedpay.event;
 
-import java.util.UUID;
+import co.melondev.cubedpay.data.OrderObject;
 
 public class PurchasedEvent extends CubedEvent {
 
-    private final UUID uuid;
     private final int id;
+    private final OrderObject order;
 
-    public PurchasedEvent(UUID uuid, int id) {
-        this.uuid = uuid;
+    public PurchasedEvent(int id, OrderObject order) {
         this.id = id;
+        this.order = order;
     }
 
-    public UUID uuid() {
-        return this.uuid;
-    }
-
-    public int id() {
+    public int getId() {
         return this.id;
+    }
+
+    public OrderObject getOrder() {
+        return order;
     }
 
     @Override

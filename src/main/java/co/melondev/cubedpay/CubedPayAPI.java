@@ -2,6 +2,9 @@ package co.melondev.cubedpay;
 
 import co.melondev.cubedpay.data.*;
 import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
+import co.melondev.cubedpay.event.CubedAnnotationProcessor;
+import co.melondev.cubedpay.event.CubedEvent;
+import co.melondev.cubedpay.event.CubedEventRunnable;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -11,6 +14,7 @@ import retrofit2.adapter.java8.Java8CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import java.lang.annotation.Annotation;
@@ -23,24 +27,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author theminecoder
- */
 public interface CubedPayAPI {
 
     class DispatcherMap {
         private static final Map<CubedPayAPI, Dispatcher> dispatcherMap = new HashMap<>();
     }
 
-    CubedPayStaticData data = new CubedPayStaticData();
+    CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
     ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
-    static CubedPayAPI create(String appID) {
-        return create(appID, "https://api.cubedpay.com");
+    static CubedPayAPI create(String appID, String accessToken) {
+        return create(appID, accessToken, "https://api.cubedpay.com");
     }
 
-    static CubedPayAPI create(String appID, String apiUrl) {
-        data.setAppID(appID);
+    static CubedPayAPI create(String appID, String accessToken, String apiUrl) {
         Dispatcher dispatcher = new Dispatcher();
         CubedPayAPI api = new Retrofit.Builder()
                 .baseUrl(apiUrl)
@@ -54,13 +54,12 @@ public interface CubedPayAPI {
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
-                                .addHeader("app-id", data.getAppID())
-                                .url(chain.request().url().newBuilder().addQueryParameter("access_token", data.getOAuth()).build())
+                                .addHeader("app-id", appID)
+                                .url(chain.request().url().newBuilder().addQueryParameter("access_token", accessToken).build())
                                 .build())
                         ).dispatcher(dispatcher).build()
                 ).build().create(CubedPayAPI.class);
         DispatcherMap.dispatcherMap.put(api, dispatcher);
-        executor.schedule(new OAuthRefreshRunnable(api), 12, TimeUnit.HOURS);
         return api;
     }
 
@@ -82,14 +81,32 @@ public interface CubedPayAPI {
     @GET("/shop")
     CompletableFuture<List<String>> getShops(@Query("page") int page, @Query("perpage") int perpage);
 
-    @GET("/payment/request")
-    CompletableFuture<String> requestPayment(@Query("shop_id") int shopId, @Query("items") Map<String, Double> items, @Query("amount") double amount, @Query("type") String type);
-
     @GET("/game")
     CompletableFuture<Games> getGames(@Query("page") int page, @Query("perpage") int perpage);
 
     @GET("/global/permissions")
     CompletableFuture<Permissions> getPermissions(@Query("page") int page, @Query("perpage") int perpage);
+
+    @GET("/shop/{sid}/event")
+    CompletableFuture<Event> getEvent(@Path("sid") String shopId);
+
+    @POST("/shop/{sid}/event/{eid}/ack")
+    CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") int eventId);
+
+    @GET("/payment/request")
+    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("items") List<Item> items, @Query("type") String type);
+
+    default void registerListener(Object clazz) {
+        annotationProcessor.processAnnotation(clazz);
+    }
+
+    default void startEvents(String shopID) {
+        executor.schedule(new CubedEventRunnable(this, shopID), 20, TimeUnit.SECONDS);
+    }
+
+    default void emitEvent(CubedEvent event) {
+        annotationProcessor.emitEvent(event);
+    }
 
     default void shutdown() throws InterruptedException {
         Dispatcher dispatcher = DispatcherMap.dispatcherMap.remove(this);

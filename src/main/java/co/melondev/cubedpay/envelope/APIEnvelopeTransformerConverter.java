@@ -9,9 +9,6 @@ import retrofit2.Converter;
 
 import java.io.IOException;
 
-/**
- * @author theminecoder
- */
 public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBody, T> {
 
     private static Gson gson = new Gson();

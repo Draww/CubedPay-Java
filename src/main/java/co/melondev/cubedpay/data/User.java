@@ -1,12 +1,10 @@
 package co.melondev.cubedpay.data;
 
+import co.melondev.cubedpay.data.common.Date;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-/**
- * @author theminecoder
- */
 public class User {
 
     private long id = 0;

@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnnotationProcessor {
+public class CubedAnnotationProcessor {
 
-    private static Map<Method, Class<?>> eventHandlers = new HashMap<>();
-    private static Map<Method, Object> eventClasses = new HashMap<>();
+    private Map<Method, Class<?>> eventHandlers = new HashMap<>();
+    private Map<Method, Object> eventClasses = new HashMap<>();
 
-    public static void processAnnotation(Object instance) {
+    public void processAnnotation(Object instance) {
         if (!Modifier.isPublic(instance.getClass().getModifiers())) {
             System.out.println("CubedPay - Error: Registered listener class is not public! (" + instance.getClass().getName() + ")");
             return;
@@ -25,7 +25,7 @@ public class AnnotationProcessor {
         });
     }
 
-    public static void emitEvent(CubedEvent event) {
+    public void emitEvent(CubedEvent event) {
         eventHandlers.forEach((method, aClass) -> {
             final Object clazz = eventClasses.get(method);
             try {

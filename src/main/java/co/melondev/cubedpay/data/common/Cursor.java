@@ -1,9 +1,5 @@
 package co.melondev.cubedpay.data.common;
 
-/**
- * @author Clutch
- * @since 2/15/2018
- */
 public class Cursor {
 
     private int current_page = 0;

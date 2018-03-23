@@ -9,9 +9,6 @@ import retrofit2.Retrofit;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-/**
- * @author theminecoder
- */
 public class APIEnvelopeTransformerConverterFactory extends Factory {
 
     private Factory delegateConverterFactory;

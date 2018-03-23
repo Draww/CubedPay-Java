@@ -1,9 +1,5 @@
 package co.melondev.cubedpay.data.common;
 
-/**
- * @author Clutch
- * @since 2/7/2018
- */
 public class Date {
 
     private int numeric = 0;

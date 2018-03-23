@@ -1,9 +1,5 @@
 package co.melondev.cubedpay.data;
 
-/**
- * @author Clutch
- * @since 2/15/2018
- */
 public class Game {
 
     private String id = "";

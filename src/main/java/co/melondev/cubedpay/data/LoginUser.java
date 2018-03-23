@@ -5,10 +5,6 @@ import co.melondev.cubedpay.data.common.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Clutch
- * @since 2/7/2018
- */
 public class LoginUser {
 
     private String oauth_token = "";
