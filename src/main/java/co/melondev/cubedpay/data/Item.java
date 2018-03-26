@@ -2,10 +2,10 @@ package co.melondev.cubedpay.data;
 
 public class Item {
 
-    private int id = 0;
-    private String name = "";
-    private double price = 0;
-    private int quantity;
+    private Integer id;
+    private String name;
+    private Double price;
+    private Integer quantity;
 
     public Item(String name, double price, int quantity) {
         this.name = name;
