@@ -22,10 +22,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public interface CubedPayAPI {
 
@@ -33,8 +30,10 @@ public interface CubedPayAPI {
         private static final Map<CubedPayAPI, Dispatcher> dispatcherMap = new HashMap<>();
     }
 
-    CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+    class EventMap {
+        private static final Map<String, ExecutorService> eventMap = new HashMap<>();
+        private static CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
+    }
 
     static CubedPayAPI create(String appID, String accessToken) {
         return create(appID, accessToken, "https://api.cubedpay.com");
@@ -97,15 +96,18 @@ public interface CubedPayAPI {
     CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("items") List<Item> items, @Query("type") String type);
 
     default void registerListener(Object clazz) {
-        annotationProcessor.processAnnotation(clazz);
+        EventMap.annotationProcessor.processAnnotation(clazz);
     }
 
     default void startEvents(String shopID) {
+        if (EventMap.eventMap.containsKey(shopID)) return;
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.schedule(new CubedEventRunnable(this, shopID), 20, TimeUnit.SECONDS);
+        EventMap.eventMap.put(shopID, executor);
     }
 
     default void emitEvent(CubedEvent event) {
-        annotationProcessor.emitEvent(event);
+        EventMap.annotationProcessor.emitEvent(event);
     }
 
     default void shutdown() throws InterruptedException {
@@ -113,7 +115,9 @@ public interface CubedPayAPI {
         dispatcher.cancelAll();
         dispatcher.executorService().shutdown();
         dispatcher.executorService().awaitTermination(10, TimeUnit.SECONDS);
-        executor.shutdown();
-        executor.awaitTermination(10, TimeUnit.SECONDS);
+        for (ExecutorService executor : EventMap.eventMap.values()) {
+            executor.shutdown();
+            executor.awaitTermination(10, TimeUnit.SECONDS);
+        }
     }
 }
