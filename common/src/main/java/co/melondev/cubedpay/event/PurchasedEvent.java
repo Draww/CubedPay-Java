@@ -1,13 +1,13 @@
 package co.melondev.cubedpay.event;
 
-import co.melondev.cubedpay.data.OrderObject;
+import co.melondev.cubedpay.data.Order;
 
 public class PurchasedEvent extends CubedEvent {
 
     private final int id;
-    private final OrderObject order;
+    private final Order order;
 
-    public PurchasedEvent(int id, OrderObject order) {
+    public PurchasedEvent(int id, Order order) {
         this.id = id;
         this.order = order;
     }
@@ -16,7 +16,7 @@ public class PurchasedEvent extends CubedEvent {
         return this.id;
     }
 
-    public OrderObject getOrder() {
+    public Order getOrder() {
         return order;
     }
 

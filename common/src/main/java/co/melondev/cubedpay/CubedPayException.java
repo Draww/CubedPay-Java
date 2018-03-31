@@ -2,9 +2,6 @@ package co.melondev.cubedpay;
 
 import java.io.IOException;
 
-/**
- * @author theminecoder
- */
 public class CubedPayException extends IOException {
 
     private int code;

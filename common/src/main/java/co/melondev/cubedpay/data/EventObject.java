@@ -3,13 +3,13 @@ package co.melondev.cubedpay.data;
 public class EventObject {
 
     private String type = "";
-    private OrderObject obj = new OrderObject();
+    private Order obj = new Order();
 
     public String getType() {
         return type;
     }
 
-    public OrderObject getObj() {
+    public Order getObj() {
         return obj;
     }
 }
