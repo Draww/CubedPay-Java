@@ -1,0 +1,5 @@
+name: CubedPayPlugin
+author: Melon Development
+version: 1.0.0
+website: cubedpay.com
+main: co.melondev.cubedpay.CubedPayPlugin
