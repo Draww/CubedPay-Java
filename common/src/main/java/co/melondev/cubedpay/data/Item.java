@@ -2,7 +2,7 @@ package co.melondev.cubedpay.data;
 
 public class Item {
 
-    private Integer id;
+    private String id;
     private String name;
     private Double price;
     private Integer quantity;
@@ -13,12 +13,12 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public Item(int id, int quantity) {
+    public Item(String id, int quantity) {
         this.id = id;
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
