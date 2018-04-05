@@ -1,5 +1,6 @@
 package co.melondev.cubedpay.envelope;
 
+import com.google.gson.Gson;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -29,6 +30,14 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
 
     @Override
     public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        return delegateConverterFactory.stringConverter(type, annotations, retrofit);
+        System.out.println("Checking " + type);
+        if (type instanceof Class && (((Class) type).isPrimitive() || ((Class) type) == String.class)) {
+            return null;
+        }
+        System.out.println("Returning converter for " + type);
+        return (o) -> {
+            System.out.println("Converting " + o);
+            return new Gson().toJson(o);
+        };
     }
 }
