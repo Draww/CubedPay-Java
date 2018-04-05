@@ -43,6 +43,16 @@ public class CubedPayPlugin extends JavaPlugin {
         api.startEvents(settings.getShopID());
     }
 
+    @Override
+    public void onDisable() {
+        if (api == null) return;
+        try {
+            api.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static CubedPayAPI getAPI() {
         return getInstance().api;
     }
