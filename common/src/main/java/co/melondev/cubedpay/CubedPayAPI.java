@@ -97,8 +97,12 @@ public interface CubedPayAPI {
     @POST("/shop/{sid}/event/{eid}/ack")
     CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") int eventId);
 
+    default CompletableFuture<Payment> requestPayment(String shopId, String type, Item... item) {
+        return requestPayment(shopId, type, new Items(item));
+    }
+
     @POST("/payment/request")
-    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("type") String type, @Body Item... items);
+    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("type") String type, @Body Items items);
 
     default void registerListener(Object clazz) {
         EventMap.annotationProcessor.processAnnotation(clazz);

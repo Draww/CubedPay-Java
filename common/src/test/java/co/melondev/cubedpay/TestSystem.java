@@ -4,8 +4,6 @@ import co.melondev.cubedpay.data.Item;
 import co.melondev.cubedpay.event.PaymentHandler;
 import co.melondev.cubedpay.event.PurchasedEvent;
 
-import java.util.ArrayList;
-
 public class TestSystem {
 
     public static class EventTester {
@@ -25,9 +23,7 @@ public class TestSystem {
         api.registerListener(new EventTester());
         api.startEvents(shopID);
 
-        api.requestPayment(shopID, new ArrayList<Item>() {{
-            new Item("Diamond", 1.0, 1);
-            new Item("Diamond Sword", 2.0, 1);
-        }}, "sale").thenAccept(payment -> System.out.println("Payment url: " + payment.getAuthorize().getRedirectTo()));
+        api.requestPayment(shopID, "sale", new Item("Diamond", 1.0, 1), new Item("Diamond Sword", 2.0, 1))
+                .thenAccept(payment -> System.out.println("Payment url: " + payment.getAuthorize().getRedirectTo()));
     }
 }
