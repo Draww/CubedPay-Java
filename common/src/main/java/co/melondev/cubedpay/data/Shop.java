@@ -16,7 +16,7 @@ public class Shop {
     private String disabled_reason = "";
     private String time_zone = "";
     private List<User> members = new ArrayList<>();
-    private String plan = "";
+    private ShopPlan plan = new ShopPlan();
     private List<String> gateways = new ArrayList<>();
     private Date created = new Date();
 
@@ -56,7 +56,7 @@ public class Shop {
         return members;
     }
 
-    public String getPlan() {
+    public ShopPlan getPlan() {
         return plan;
     }
 

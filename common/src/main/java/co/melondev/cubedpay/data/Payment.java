@@ -2,10 +2,13 @@ package co.melondev.cubedpay.data;
 
 import co.melondev.cubedpay.data.common.Date;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Payment {
 
     private String id = "";
-    private String items = "";
+    private List<Item> items = new ArrayList<>();
     private String amount = "";
     private boolean completed = false;
     private Shop shop = new Shop();
@@ -16,7 +19,7 @@ public class Payment {
         return id;
     }
 
-    public String getItems() {
+    public List<Item> getItems() {
         return items;
     }
 

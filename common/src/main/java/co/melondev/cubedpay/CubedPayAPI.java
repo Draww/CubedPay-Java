@@ -12,10 +12,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.java8.Java8CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -80,6 +77,14 @@ public interface CubedPayAPI {
     @GET("/shop")
     CompletableFuture<List<String>> getShops(@Query("page") int page, @Query("perpage") int perpage);
 
+    default CompletableFuture<Games> getGames() {
+        return getGames(1);
+    }
+
+    default CompletableFuture<Games> getGames(int page) {
+        return getGames(page, 20);
+    }
+
     @GET("/game")
     CompletableFuture<Games> getGames(@Query("page") int page, @Query("perpage") int perpage);
 
@@ -92,9 +97,8 @@ public interface CubedPayAPI {
     @POST("/shop/{sid}/event/{eid}/ack")
     CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") int eventId);
 
-    @Multipart
     @POST("/payment/request")
-    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Part("items") List<Item> items, @Query("type") String type);
+    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("type") String type, @Body Item... items);
 
     default void registerListener(Object clazz) {
         EventMap.annotationProcessor.processAnnotation(clazz);
