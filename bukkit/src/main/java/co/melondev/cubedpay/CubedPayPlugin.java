@@ -24,6 +24,7 @@ public class CubedPayPlugin extends JavaPlugin {
             getLogger().severe("AppID is blank in the config!");
             disable = true;
         }
+
         if (settings.getAccessToken() == null || settings.getAccessToken().isEmpty()) {
             getLogger().severe("AccessToken is blank in the config!");
             disable = true;
