@@ -1,9 +1,29 @@
-# CubedPay-Java
+
+![CubedPay Logo](https://app.cubedpay.com/static/media/CubedPayRoundSquare.2bab53a3.png)
+
+# CubedPay Java
 Java client for the CubedPay API.
 
 The client is separated into 2 modules, the main java library and a bukkit plugin.
 
-You can get all the authentication keys you need for this library from your dashboard.
+## Getting Your Keys
+It's easy to get the keys you need:
+
+1. Sign into http://app.cubedpay.com with your CubedPay account.
+2. Visit the store you want to make purchases through
+3. On the store navigation, select "Settings" then "Integrations".
+4. Copy your Client ID and Secret. These will be your authentication methods.
+
+## Using a Bot User
+If you'd like to limit what access the client has to your store, use a Bot User instead.
+
+1. Sign into http://app.cubedpay.com with your CubedPay account.
+2. Visit the store you want to make purchases through
+3. On the store navigation, select "Settings" then "Team".
+4. Create a New Bot User with the permissions you'd like to allow.
+5. Copy your bot's Bot ID and Secret. Use these in place of the regular App ID and Secret.
+
+Please remember that using Bot Users requires your store to be on the **Unlimited** plan.
 
 ## API
 ### Standalone API
