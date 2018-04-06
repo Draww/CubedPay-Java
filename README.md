@@ -1,5 +1,4 @@
-
-![CubedPay Logo](https://app.cubedpay.com/static/media/CubedPayRoundSquare.2bab53a3.png)
+<img alt="CubedPay Logo" src="https://storage.googleapis.com/static.cubedpay.com/cubedpay_github_logo.png" style="float: right;">
 
 # CubedPay Java
 Java client for the CubedPay API.
@@ -14,7 +13,7 @@ It's easy to get the keys you need:
 3. On the store navigation, select "Settings" then "Integrations".
 4. Copy your Client ID and Secret. These will be your authentication methods.
 
-## Using a Bot User
+### Using a Bot User (Coming Soon)
 If you'd like to limit what access the client has to your store, use a Bot User instead.
 
 1. Sign into http://app.cubedpay.com with your CubedPay account.
