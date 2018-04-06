@@ -1,4 +1,4 @@
-<img alt="CubedPay Logo" src="https://storage.googleapis.com/static.cubedpay.com/cubedpay_github_logo.png" style="float: right;">
+<img src="https://storage.googleapis.com/static.cubedpay.com/cubedpay_github_logo.png" align="right" />
 
 # CubedPay Java
 Java client for the CubedPay API.
