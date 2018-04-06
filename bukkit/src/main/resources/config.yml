@@ -1,3 +1,4 @@
-appID: ''
+appId: ''
 accessToken: ''
-shopID: ''
+stores:
+  - ''

@@ -3,11 +3,11 @@ package co.melondev.cubedpay;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 
 public class CubedPayPlugin extends JavaPlugin {
 
-    private CubedPayAPI api;
-    private CubedPaySettings settings = new CubedPaySettings();
+    private static CubedPayAPI api;
 
     @Override
     public void onEnable() {
@@ -17,31 +17,37 @@ public class CubedPayPlugin extends JavaPlugin {
         File config = new File(dir, "config.yml");
         if (!config.exists()) saveDefaultConfig();
 
-        settings.load(getConfig());
+        String appId = getConfig().getString("appId", "");
+        String token = getConfig().getString("accessToken", "");
 
         boolean disable = false;
-        if (settings.getAppID() == null || settings.getAppID().isEmpty()) {
-            getLogger().severe("AppID is blank in the config!");
+        if (appId.isEmpty()) {
+            getLogger().severe("appId is blank in the config!");
             disable = true;
         }
 
-        if (settings.getAccessToken() == null || settings.getAccessToken().isEmpty()) {
-            getLogger().severe("AccessToken is blank in the config!");
+        if (token.isEmpty()) {
+            getLogger().severe("accessToken is blank in the config!");
             disable = true;
         }
+
         if (disable) {
             getLogger().severe("CubedPayPlugin will now disable.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
-        api = CubedPayAPI.create(settings.getAppID(), settings.getAccessToken());
+        api = CubedPayAPI.create(appId, token);
 
-        if (settings.getShopID() == null || settings.getShopID().isEmpty()) {
-            getLogger().severe("ShopID is blank in the config! Not starting event runnable!");
+        List<String> shops = getConfig().getStringList("shops");
+
+        if (shops.isEmpty()) {
+            getLogger().warning("No shops defined in the config! Events will not poll without api assistance!");
             return;
         }
-        api.startEvents(settings.getShopID());
+
+        shops.stream().peek(shop -> getLogger().info("Starting event for shop " + shop)).forEach(api::startEvents);
+
     }
 
     @Override
@@ -55,14 +61,6 @@ public class CubedPayPlugin extends JavaPlugin {
     }
 
     public static CubedPayAPI getAPI() {
-        return getInstance().api;
-    }
-
-    public static CubedPaySettings getSettings() {
-        return getInstance().settings;
-    }
-
-    private static CubedPayPlugin getInstance() {
-        return CubedPayPlugin.getPlugin(CubedPayPlugin.class);
+        return api;
     }
 }
