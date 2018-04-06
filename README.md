@@ -26,7 +26,7 @@ Please remember that using Bot Users requires your store to be on the **Unlimite
 
 ## API
 ### Standalone API
-You can find the maim standalone java library code in the `common` folder.
+You can find the main standalone java library code in the `common` folder.
 
 To get started with the API you need to create an instance of `CubedPayAPI` by calling 
 `CubedPayAPI.create(String appID, String token)`.
