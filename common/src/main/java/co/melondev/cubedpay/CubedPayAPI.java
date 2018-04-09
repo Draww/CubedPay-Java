@@ -115,8 +115,8 @@ public interface CubedPayAPI {
         EventMap.eventMap.put(shopID, executor);
     }
 
-    default void emitEvent(CubedEvent event) {
-        EventMap.annotationProcessor.emitEvent(event);
+    default boolean emitEvent(CubedEvent event) {
+        return EventMap.annotationProcessor.emitEvent(event);
     }
 
     default void shutdown() throws InterruptedException {

@@ -15,7 +15,7 @@ public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBod
     private static Gson gson = new Gson();
     private Converter<ResponseBody, T> delegateConverter;
 
-    public APIEnvelopeTransformerConverter(Converter<ResponseBody, T> delegateConverter) {
+    APIEnvelopeTransformerConverter(Converter<ResponseBody, T> delegateConverter) {
         this.delegateConverter = delegateConverter;
     }
 

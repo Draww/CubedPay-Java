@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 
 public class APIEnvelopeTransformerConverterFactory extends Factory {
 
+    private static final Gson gson = new Gson();
     private Factory delegateConverterFactory;
 
     public APIEnvelopeTransformerConverterFactory(Factory delegateConverterFactory) {
@@ -30,14 +31,9 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
 
     @Override
     public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        System.out.println("Checking " + type);
         if (type instanceof Class && (((Class) type).isPrimitive() || ((Class) type) == String.class)) {
             return null;
         }
-        System.out.println("Returning converter for " + type);
-        return (o) -> {
-            System.out.println("Converting " + o);
-            return new Gson().toJson(o);
-        };
+        return gson::toJson;
     }
 }
