@@ -24,6 +24,11 @@ public class TestSystem {
         api.startEvents(shopID);
 
         api.requestPayment(shopID, "sale", new Item("Diamond", 1.0, 1), new Item("Diamond Sword", 2.0, 1))
-                .thenAccept(payment -> System.out.println("Payment url: " + payment.getAuthorize().getRedirectTo()));
+                .thenAccept(payment -> System.out.println("Payment url: " + payment.getAuthorize().getRedirectTo()))
+                .exceptionally(throwable -> {
+                    throwable.printStackTrace();
+                    return null;
+                }
+        );
     }
 }

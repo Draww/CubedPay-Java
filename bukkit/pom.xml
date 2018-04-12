@@ -55,6 +55,11 @@
                         </goals>
                         <configuration>
                             <minimizeJar>true</minimizeJar>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>com.google.code.gson:gson</exclude>
+                                </excludes>
+                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
