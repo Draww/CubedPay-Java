@@ -64,6 +64,18 @@ public class PaymentRequest {
 }
 ```
 
+#### Error Handling
+API errors happen, even though we try to avoid them! (Although it could be your fault too... nobody is pointing fingers, though.)
+
+To handle things that go badly:
+```java
+.exceptionally(throwable -> {
+    throwable.printStackTrace();
+});
+```
+
+Easy!
+
 ### Bukkit Plugin
 You can find the bukkit plugin code inside the `bukkit` folder.
 
