@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
 
-	<artifactId>CubedPay-bukkit</artifactId>
+    <artifactId>CubedPay-bukkit</artifactId>
 
     <repositories>
         <repository>
@@ -28,6 +28,12 @@
             <artifactId>spigot-api</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -55,11 +61,12 @@
                         </goals>
                         <configuration>
                             <minimizeJar>true</minimizeJar>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>com.google.code.gson:gson</exclude>
-                                </excludes>
-                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>com.google.shaded.gson</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
