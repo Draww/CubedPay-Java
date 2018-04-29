@@ -111,7 +111,7 @@ public interface CubedPayAPI {
     default void startEvents(String shopID) {
         if (EventMap.eventMap.containsKey(shopID)) return;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.schedule(new CubedEventRunnable(this, shopID), 20, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(new CubedEventRunnable(this, shopID), 5, 20, TimeUnit.SECONDS);
         EventMap.eventMap.put(shopID, executor);
     }
 
