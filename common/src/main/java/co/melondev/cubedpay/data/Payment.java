@@ -9,8 +9,9 @@ public class Payment {
 
     private String id = "";
     private List<Item> items = new ArrayList<>();
-    private String amount = "";
+    private int amount = 0;
     private boolean completed = false;
+    private UserProfile profile = new UserProfile();
     private Shop shop = new Shop();
     private Date expire_at = new Date();
     private Authorize authorize = new Authorize();
@@ -23,12 +24,16 @@ public class Payment {
         return items;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
     public boolean isCompleted() {
         return completed;
+    }
+
+    public UserProfile getProfile() {
+        return profile;
     }
 
     public Shop getShop() {

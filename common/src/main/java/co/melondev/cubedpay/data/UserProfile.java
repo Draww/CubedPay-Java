@@ -7,7 +7,7 @@ public class UserProfile {
 
     private String id = "";
     private String game = "";
-    private String externalId = "";
+    private String external_id = "";
     private Map<String, Object> data = new HashMap<>();
 
     public String getId() {
@@ -19,7 +19,7 @@ public class UserProfile {
     }
 
     public String getExternalId() {
-        return externalId;
+        return external_id;
     }
 
     public Map<String, Object> getData() {

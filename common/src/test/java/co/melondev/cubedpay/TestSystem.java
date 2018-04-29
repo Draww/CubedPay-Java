@@ -10,7 +10,9 @@ public class TestSystem {
 
         @PaymentHandler
         public void onPurchased(PurchasedEvent event) {
+            System.out.println(event.getProfile().getId());
             System.out.println("Purchased: " + event.getId());
+            event.setProcessed(true);
         }
     }
 

@@ -32,12 +32,15 @@ public class CubedAnnotationProcessor {
             final Object clazz = eventClasses.get(method);
             try {
                 method.invoke(clazz, event);
+                if (event instanceof PurchasedEvent) {
+                    emitted.set(((PurchasedEvent) event).isProcessed());
+                    return;
+                }
                 emitted.set(true);
             } catch (IllegalAccessException e) {
                 System.out.println("CubedPay - Error: Please make sure the listener class is public! (" + clazz.getClass().getName() + ")");
             } catch (InvocationTargetException e) {
                 System.out.println("CubedPay - Error: Invoke exception on " + clazz.getClass().getSimpleName() + ":" + method.getName() + "()");
-                emitted.set(true);
             } catch (IllegalArgumentException ignored) {
             }
         });

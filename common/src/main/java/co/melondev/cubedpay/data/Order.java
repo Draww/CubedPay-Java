@@ -5,14 +5,20 @@ import java.util.ArrayList;
 public class Order {
 
     private int id = 0;
+    private Shop shop = new Shop();
     private Payment transaction = new Payment();
     private User user = new User();
     private int total = 0;
+    private PaymentInfo payment = new PaymentInfo();
     private ArrayList<Item> items = new ArrayList<>();
     private boolean status = false;
 
     public int getId() {
         return id;
+    }
+
+    public Shop getShop() {
+        return shop;
     }
 
     public Payment getTransaction() {
@@ -27,11 +33,15 @@ public class Order {
         return total;
     }
 
+    public PaymentInfo getPayment() {
+        return payment;
+    }
+
     public ArrayList<Item> getItems() {
         return items;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 }

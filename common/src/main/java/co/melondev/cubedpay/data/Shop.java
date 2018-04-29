@@ -10,14 +10,15 @@ public class Shop {
     private String id = "";
     private String url = "";
     private String name = "";
-    private String logo = "";
+    private Logo logo = new Logo();
     private boolean active = false;
     private boolean disabled = false;
     private String disabled_reason = "";
+    private Game game = new Game();
     private String time_zone = "";
     private List<User> members = new ArrayList<>();
     private ShopPlan plan = new ShopPlan();
-    private List<String> gateways = new ArrayList<>();
+    private List<Gateway> gateways = new ArrayList<>();
     private Date created = new Date();
 
     public String getId() {
@@ -32,7 +33,7 @@ public class Shop {
         return name;
     }
 
-    public String getLogo() {
+    public Logo getLogo() {
         return logo;
     }
 
@@ -48,6 +49,10 @@ public class Shop {
         return disabled_reason;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public String getTimezone() {
         return time_zone;
     }
@@ -60,7 +65,7 @@ public class Shop {
         return plan;
     }
 
-    public List<String> getGateways() {
+    public List<Gateway> getGateways() {
         return gateways;
     }
 
