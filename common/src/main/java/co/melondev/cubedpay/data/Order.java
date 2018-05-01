@@ -8,7 +8,7 @@ public class Order {
     private Shop shop = new Shop();
     private Payment transaction = new Payment();
     private User user = new User();
-    private int total = 0;
+    private double total = 0;
     private PaymentInfo payment = new PaymentInfo();
     private ArrayList<Item> items = new ArrayList<>();
     private boolean status = false;
@@ -29,7 +29,7 @@ public class Order {
         return user;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 

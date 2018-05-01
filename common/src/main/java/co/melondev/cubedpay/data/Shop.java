@@ -1,7 +1,5 @@
 package co.melondev.cubedpay.data;
 
-import co.melondev.cubedpay.data.common.Date;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,7 @@ public class Shop {
     private String id = "";
     private String url = "";
     private String name = "";
-    private Logo logo = new Logo();
+    private UploadedImage logo = new UploadedImage();
     private boolean active = false;
     private boolean disabled = false;
     private String disabled_reason = "";
@@ -31,7 +29,7 @@ public class Shop {
         return name;
     }
 
-    public Logo getLogo() {
+    public UploadedImage getLogo() {
         return logo;
     }
 

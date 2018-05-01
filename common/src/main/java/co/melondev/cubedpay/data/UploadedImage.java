@@ -1,6 +1,6 @@
 package co.melondev.cubedpay.data;
 
-public class Logo {
+public class UploadedImage {
 
     private String id = "";
     private String url = "";
