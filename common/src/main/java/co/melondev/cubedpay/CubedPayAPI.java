@@ -92,10 +92,10 @@ public interface CubedPayAPI {
     CompletableFuture<Permissions> getPermissions(@Query("page") int page, @Query("perpage") int perpage);
 
     @GET("/shop/{sid}/event")
-    CompletableFuture<Event> getEvent(@Path("sid") String shopId);
+    CompletableFuture<Events> getEvents(@Path("sid") String shopId);
 
     @POST("/shop/{sid}/event/{eid}/ack")
-    CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") int eventId);
+    CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") String eventId);
 
     default CompletableFuture<Payment> requestPayment(String shopId, String type, Item... item) {
         return requestPayment(shopId, type, new Items(item));

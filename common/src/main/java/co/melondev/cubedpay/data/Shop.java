@@ -17,9 +17,7 @@ public class Shop {
     private Game game = new Game();
     private String time_zone = "";
     private List<User> members = new ArrayList<>();
-    private ShopPlan plan = new ShopPlan();
     private List<Gateway> gateways = new ArrayList<>();
-    private Date created = new Date();
 
     public String getId() {
         return id;
@@ -61,15 +59,7 @@ public class Shop {
         return members;
     }
 
-    public ShopPlan getPlan() {
-        return plan;
-    }
-
     public List<Gateway> getGateways() {
         return gateways;
-    }
-
-    public Date getCreated() {
-        return created;
     }
 }

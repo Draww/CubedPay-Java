@@ -1,18 +1,31 @@
 package co.melondev.cubedpay.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import co.melondev.cubedpay.data.common.Date;
 
 public class Event {
 
-    private int items = 0;
-    private List<EventData> data = new ArrayList<>();
+    private String id;
+    private EventObject obj = new EventObject();
+    private Date accepted = new Date();
 
-    public int getItems() {
-        return items;
+    public String getId() {
+        return id;
     }
 
-    public List<EventData> getData() {
-        return data;
+    public EventObject getObj() {
+        return obj;
+    }
+
+    public Date getAccepted() {
+        return accepted;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", obj=" + obj +
+                ", accepted=" + accepted +
+                '}';
     }
 }

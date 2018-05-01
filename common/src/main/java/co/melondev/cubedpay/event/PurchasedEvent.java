@@ -5,16 +5,16 @@ import co.melondev.cubedpay.data.UserProfile;
 
 public class PurchasedEvent extends CubedEvent {
 
-    private final int id;
+    private final String id;
     private final Order order;
     private boolean processed = false;
 
-    public PurchasedEvent(int id, Order order) {
+    public PurchasedEvent(String id, Order order) {
         this.id = id;
         this.order = order;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -36,6 +36,6 @@ public class PurchasedEvent extends CubedEvent {
 
     @Override
     public String name() {
-        return "Purchased Event";
+        return "Purchased Events";
     }
 }

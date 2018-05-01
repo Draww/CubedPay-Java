@@ -12,4 +12,12 @@ public class Game {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

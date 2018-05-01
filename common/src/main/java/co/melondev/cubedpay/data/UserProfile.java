@@ -6,7 +6,7 @@ import java.util.Map;
 public class UserProfile {
 
     private String id = "";
-    private String game = "";
+    private Game game;
     private String external_id = "";
     private Map<String, Object> data = new HashMap<>();
 
@@ -14,7 +14,7 @@ public class UserProfile {
         return id;
     }
 
-    public String getGame() {
+    public Game getGame() {
         return game;
     }
 
@@ -24,5 +24,15 @@ public class UserProfile {
 
     public Map<String, Object> getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id='" + id + '\'' +
+                ", game=" + game +
+                ", external_id='" + external_id + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

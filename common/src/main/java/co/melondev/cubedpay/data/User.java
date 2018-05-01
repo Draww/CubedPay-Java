@@ -42,4 +42,17 @@ public class User {
     public List<UserProfile> getProfiles() {
         return profiles;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", memberSince=" + memberSince +
+                ", profiles=" + profiles +
+                '}';
+    }
 }

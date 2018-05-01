@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order {
 
-    private int id = 0;
+    private String id;
     private Shop shop = new Shop();
     private Payment transaction = new Payment();
     private User user = new User();
@@ -13,7 +13,7 @@ public class Order {
     private ArrayList<Item> items = new ArrayList<>();
     private boolean status = false;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -43,5 +43,19 @@ public class Order {
 
     public boolean getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", shop=" + shop +
+                ", transaction=" + transaction +
+                ", user=" + user +
+                ", total=" + total +
+                ", payment=" + payment +
+                ", items=" + items +
+                ", status=" + status +
+                '}';
     }
 }

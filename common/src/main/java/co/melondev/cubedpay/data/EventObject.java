@@ -12,4 +12,12 @@ public class EventObject {
     public Order getObj() {
         return obj;
     }
+
+    @Override
+    public String toString() {
+        return "EventObject{" +
+                "type='" + type + '\'' +
+                ", obj=" + obj +
+                '}';
+    }
 }
