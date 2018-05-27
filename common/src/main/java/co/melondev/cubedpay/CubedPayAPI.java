@@ -75,7 +75,7 @@ public interface CubedPayAPI {
     CompletableFuture<LoginUser> refreshOAuth();
 
     @GET("/shop")
-    CompletableFuture<List<String>> getShops(@Query("page") int page, @Query("perpage") int perpage);
+    CompletableFuture<Shops> getShops(@Query("page") int page, @Query("perpage") int perpage);
 
     default CompletableFuture<Games> getGames() {
         return getGames(1);
@@ -85,7 +85,7 @@ public interface CubedPayAPI {
         return getGames(page, 20);
     }
 
-    @GET("/game")
+    @GET("/global/game")
     CompletableFuture<Games> getGames(@Query("page") int page, @Query("perpage") int perpage);
 
     @GET("/global/permissions")

@@ -60,4 +60,21 @@ public class Shop {
     public List<Gateway> getGateways() {
         return gateways;
     }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", logo=" + logo +
+                ", active=" + active +
+                ", disabled=" + disabled +
+                ", disabled_reason='" + disabled_reason + '\'' +
+                ", game=" + game +
+                ", time_zone='" + time_zone + '\'' +
+                ", members=" + members +
+                ", gateways=" + gateways +
+                '}';
+    }
 }
