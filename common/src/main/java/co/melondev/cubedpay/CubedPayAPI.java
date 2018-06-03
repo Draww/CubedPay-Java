@@ -17,7 +17,6 @@ import retrofit2.http.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -65,14 +64,11 @@ public interface CubedPayAPI {
     @POST("/auth/basic")
     CompletableFuture<LoginUser> login(@Query("username") String username, @Query("password") String password, @Query("ip") String ip, @Query("fingerprint") String fingerprint);
 
-    @POST("/oauth/request")
-    CompletableFuture<OAuthRequest> requestOAuth(@Query("scopes") List<String> scopes);
+    @POST("/auth/oauth/token")
+    CompletableFuture<LoginUser> exchangeOAuthForToken(@Query("code") String code);
 
-    @POST("/oauth/token")
-    CompletableFuture<LoginUser> getAccessToken(@Query("token") String token);
-
-    @POST("/oauth/refresh")
-    CompletableFuture<LoginUser> refreshOAuth();
+    @POST("/auth/oauth/refresh")
+    CompletableFuture<LoginUser> refreshOAuth(@Query("refresh_token") String refresh_token);
 
     @GET("/shop")
     CompletableFuture<Shops> getShops(@Query("page") int page, @Query("perpage") int perpage);

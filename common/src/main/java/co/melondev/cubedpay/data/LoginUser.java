@@ -2,20 +2,25 @@ package co.melondev.cubedpay.data;
 
 import co.melondev.cubedpay.data.common.Date;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginUser {
 
+    private String access_token = "";
     private String oauth_token = "";
     private String refresh_token = "";
-
     private Date last_used = new Date();
-    private String status = "";
-    private List<String> granted_scopes = new ArrayList<>();
-
+    private int status = 0;
+    private Map<String, String> scopes = new HashMap<>();
+    private Map<String, String> scope = new HashMap<>();
     private Expires expires = new Expires();
+    private int expires_in = 0;
     private Links links = new Links();
+
+    public String getAccessToken() {
+        return access_token;
+    }
 
     public String getOAuthToken() {
         return oauth_token;
@@ -29,40 +34,27 @@ public class LoginUser {
         return last_used;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public List<String> getGrantedScopes() {
-        return granted_scopes;
+    public Map<String, String> getScopes() {
+        return scopes;
+    }
+
+    public Map<String, String> getScope() {
+        return scope;
     }
 
     public Expires getExpires() {
         return expires;
     }
 
+    public int getExpiresIn() {
+        return expires_in;
+    }
+
     public Links getLinks() {
         return links;
-    }
-
-    public class Expires {
-        private int in = 0;
-        private Date on = new Date();
-
-        public int getIn() {
-            return in;
-        }
-
-        public Date getOn() {
-            return on;
-        }
-    }
-
-    public class Links {
-        private String refresh = "";
-
-        public String getRefresh() {
-            return refresh;
-        }
     }
 }

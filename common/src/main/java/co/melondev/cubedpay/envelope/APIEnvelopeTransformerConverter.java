@@ -22,10 +22,12 @@ public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBod
     @Override
     public T convert(ResponseBody value) throws IOException {
         JsonObject fullResponse;
+        String valueString = value.string();
+        // System.out.println(valueString);
         try {
-            fullResponse = gson.fromJson(value.charStream(), JsonElement.class).getAsJsonObject();
+            fullResponse = gson.fromJson(valueString, JsonElement.class).getAsJsonObject();
         } catch (JsonParseException e) {
-            throw new CubedPayException(500, "Server sent back invalid json:\n" + value.string());
+            throw new CubedPayException(500, "Server sent back invalid json:\n" + valueString);
         }
         JsonObject returnResponse = fullResponse.getAsJsonObject("return");
 
