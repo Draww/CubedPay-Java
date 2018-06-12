@@ -4,7 +4,7 @@ import co.melondev.cubedpay.data.common.Date;
 
 public class Event {
 
-    private String id;
+    private String id = "";
     private EventObject obj = new EventObject();
     private Date accepted = new Date();
 

@@ -19,7 +19,7 @@ public class PurchasedEvent extends CubedEvent {
     }
 
     public UserProfile getProfile() {
-        return order.getTransaction().getProfile();
+        return order.getTransaction().getPayment().getProfile();
     }
 
     public Order getOrder() {

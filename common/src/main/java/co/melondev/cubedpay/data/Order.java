@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Order {
 
-    private String id;
+    private String id = "";
     private Shop shop = new Shop();
-    private Payment transaction = new Payment();
+    private Transaction transaction = new Transaction();
     private User user = new User();
     private double total = 0;
     private PaymentInfo payment = new PaymentInfo();
@@ -21,7 +21,7 @@ public class Order {
         return shop;
     }
 
-    public Payment getTransaction() {
+    public Transaction getTransaction() {
         return transaction;
     }
 

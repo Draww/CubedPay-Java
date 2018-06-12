@@ -47,4 +47,18 @@ public class Payment {
     public Authorize getAuthorize() {
         return authorize;
     }
+
+    @Override
+    public String toString() {
+        return "Payment [" +
+                "id=" + id +
+                ", items=" + items +
+                ", amount=" + amount +
+                ", completed=" + completed +
+                ", profile=" + profile +
+                ", shop=" + shop +
+                ", expire_at=" + expire_at +
+                ", authorize=" + authorize +
+                "]";
+    }
 }

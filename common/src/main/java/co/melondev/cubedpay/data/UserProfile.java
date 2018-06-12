@@ -6,7 +6,7 @@ import java.util.Map;
 public class UserProfile {
 
     private String id = "";
-    private Game game;
+    private Game game = new Game();
     private String external_id = "";
     private Map<String, Object> data = new HashMap<>();
 
@@ -28,11 +28,11 @@ public class UserProfile {
 
     @Override
     public String toString() {
-        return "UserProfile{" +
-                "id='" + id + '\'' +
+        return "UserProfile [" +
+                "id=" + id +
                 ", game=" + game +
-                ", external_id='" + external_id + '\'' +
+                ", external_id=" + external_id +
                 ", data=" + data +
-                '}';
+                "]";
     }
 }
