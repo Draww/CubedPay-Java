@@ -3,11 +3,13 @@ package co.melondev.cubedpay;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CubedPayPlugin extends JavaPlugin {
 
     private static CubedPayAPI api;
+    private List<String> shops = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -40,6 +42,7 @@ public class CubedPayPlugin extends JavaPlugin {
         api = CubedPayAPI.create(appId, token);
 
         List<String> shops = getConfig().getStringList("shops");
+        this.shops = shops;
 
         if (shops.isEmpty()) {
             getLogger().warning("No shops defined in the config! Events will not poll without api assistance!");
@@ -65,5 +68,9 @@ public class CubedPayPlugin extends JavaPlugin {
 
     public static CubedPayAPI getAPI() {
         return api;
+    }
+
+    public static List<String> getShops() {
+        return getPlugin(CubedPayPlugin.class).shops;
     }
 }

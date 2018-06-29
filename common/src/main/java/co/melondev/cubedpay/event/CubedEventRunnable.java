@@ -32,6 +32,7 @@ public class CubedEventRunnable implements Runnable {
             isRunning = false;
         }).exceptionally(throwable -> {
             throwable.printStackTrace();
+            isRunning = false;
             return null;
         });
     }

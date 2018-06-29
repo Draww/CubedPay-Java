@@ -73,6 +73,9 @@ public interface CubedPayAPI {
     @GET("/shop")
     CompletableFuture<Shops> getShops(@Query("page") int page, @Query("perpage") int perpage);
 
+    @GET("/shop/{sid}/order")
+    CompletableFuture<Orders> getRecentOrders(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
+
     default CompletableFuture<Games> getGames() {
         return getGames(1);
     }

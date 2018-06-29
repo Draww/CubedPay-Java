@@ -2,12 +2,12 @@ package co.melondev.cubedpay.data.common;
 
 public class Cursor {
 
-    private int current_page = 0;
+    private String current_page = "";
     private int total_pages = 0;
     private int total_items = 0;
-    private int per_page = 0;
+    private String per_page = "";
 
-    public int getCurrentPage() {
+    public String getCurrentPage() {
         return current_page;
     }
 
@@ -19,7 +19,7 @@ public class Cursor {
         return total_items;
     }
 
-    public int getPerPage() {
+    public String getPerPage() {
         return per_page;
     }
 }
