@@ -1,61 +1,56 @@
 package co.melondev.cubedpay.data;
 
-import co.melondev.cubedpay.data.common.Date;
+import java.util.Date;
 
+/**
+ * @author theminecoder
+ */
 public class Transaction {
 
-    private String id = "";
-    private Gateway gateway = new Gateway();
-    private Payment payment = new Payment();
-    private User user = new User();
-    private Boolean refund = false;
-    private Boolean dispute = false;
-    private boolean is_complete = false;
-    private Date created = new Date();
+    public enum Status {
+        PENDING,
+        ABANDONED,
+        COMPLETED
+    }
+
+    private String id;
+    private Status status;
+    private PublicUser user;
+    private PublicShop shop;
+    private ShopDiscount discount;
+    private String amount;
+    private Date created;
+    private Date completed;
 
     public String getId() {
         return id;
     }
 
-    public Gateway getGateway() {
-        return gateway;
+    public Status getStatus() {
+        return status;
     }
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public User getUser() {
+    public PublicUser getUser() {
         return user;
     }
 
-    public Boolean getRefund() {
-        return refund;
+    public PublicShop getShop() {
+        return shop;
     }
 
-    public Boolean getDispute() {
-        return dispute;
+    public ShopDiscount getDiscount() {
+        return discount;
     }
 
-    public boolean isComplete() {
-        return is_complete;
+    public String getAmount() {
+        return amount;
     }
 
     public Date getCreated() {
         return created;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction [" +
-                "id=" + id +
-                ", gateway=" + gateway +
-                ", payment=" + payment +
-                ", user=" + user +
-                ", refund=" + refund +
-                ", dispute=" + dispute +
-                ", is_complete=" + is_complete +
-                ", created=" + created +
-                "]";
+    public Date getCompleted() {
+        return completed;
     }
 }

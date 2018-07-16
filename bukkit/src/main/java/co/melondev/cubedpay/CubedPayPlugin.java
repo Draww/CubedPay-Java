@@ -39,7 +39,7 @@ public class CubedPayPlugin extends JavaPlugin {
             return;
         }
 
-        api = CubedPayAPI.create(appId, token);
+        api = new CubedPayAPI(appId, token);
 
         List<String> shops = getConfig().getStringList("shops");
         this.shops = shops;

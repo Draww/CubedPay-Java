@@ -5,6 +5,10 @@ Java client for the CubedPay API.
 
 The client is separated into 2 modules, the main java library and a bukkit plugin.
 
+
+**HEADS UP:** This branch contains an incomplete major refactor with the library objects.
+Please keep in mind that things could be broken and can change at anytime to help complete the refactor.  
+
 ## Getting Your Keys
 It's easy to get the keys you need:
 

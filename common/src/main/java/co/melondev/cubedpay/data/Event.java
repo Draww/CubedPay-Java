@@ -5,16 +5,16 @@ import co.melondev.cubedpay.data.common.Date;
 public class Event {
 
     private String id = "";
-    private EventObject obj = new EventObject();
+    //    private EventObject obj = new EventObject();
     private Date accepted = new Date();
 
     public String getId() {
         return id;
     }
 
-    public EventObject getObj() {
-        return obj;
-    }
+//    public EventObject getObj() {
+//        return obj;
+//    }
 
     public Date getAccepted() {
         return accepted;
@@ -24,7 +24,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "id='" + id + '\'' +
-                ", obj=" + obj +
+//                ", obj=" + obj +
                 ", accepted=" + accepted +
                 '}';
     }

@@ -1,6 +1,7 @@
 package co.melondev.cubedpay;
 
-import co.melondev.cubedpay.data.*;
+import co.melondev.cubedpay.api.CubedPayShopAPI;
+import co.melondev.cubedpay.api.CubedPayUserAPI;
 import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
 import co.melondev.cubedpay.event.CubedAnnotationProcessor;
 import co.melondev.cubedpay.event.CubedEvent;
@@ -12,32 +13,32 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.java8.Java8CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public interface CubedPayAPI {
+public class CubedPayAPI {
 
-    class DispatcherMap {
-        private static final Map<CubedPayAPI, Dispatcher> dispatcherMap = new HashMap<>();
+    private CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
+    private final Map<String, ExecutorService> eventMap = new HashMap<>();
+
+    private Dispatcher dispatcher;
+    private Retrofit retrofit;
+
+
+    public CubedPayAPI(String appID, String accessToken) {
+        this(appID, accessToken, "https://api.cubedpay.com");
     }
 
-    class EventMap {
-        private static final Map<String, ExecutorService> eventMap = new HashMap<>();
-        private static CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
-    }
-
-    static CubedPayAPI create(String appID, String accessToken) {
-        return create(appID, accessToken, "https://api.cubedpay.com");
-    }
-
-    static CubedPayAPI create(String appID, String accessToken, String apiUrl) {
-        Dispatcher dispatcher = new Dispatcher();
-        CubedPayAPI api = new Retrofit.Builder()
+    public CubedPayAPI(String appID, String accessToken, String apiUrl) {
+        dispatcher = new Dispatcher();
+        retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl)
                 .addConverterFactory(new Converter.Factory() {
                     @Override
@@ -53,77 +54,37 @@ public interface CubedPayAPI {
                                 .url(chain.request().url().newBuilder().addQueryParameter("access_token", accessToken).build())
                                 .build())
                         ).dispatcher(dispatcher).build()
-                ).build().create(CubedPayAPI.class);
-        DispatcherMap.dispatcherMap.put(api, dispatcher);
-        return api;
+                ).build();
     }
 
-    @GET("/user")
-    CompletableFuture<User> getCurrentUser();
-
-    @POST("/auth/basic")
-    CompletableFuture<LoginUser> login(@Query("username") String username, @Query("password") String password, @Query("ip") String ip, @Query("fingerprint") String fingerprint);
-
-    @POST("/auth/oauth/token")
-    CompletableFuture<LoginUser> exchangeOAuthForToken(@Query("code") String code);
-
-    @POST("/auth/oauth/refresh")
-    CompletableFuture<LoginUser> refreshOAuth(@Query("refresh_token") String refresh_token);
-
-    @GET("/shop")
-    CompletableFuture<Shops> getShops(@Query("page") int page, @Query("perpage") int perpage);
-
-    @GET("/shop/{sid}/order")
-    CompletableFuture<Orders> getRecentOrders(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
-
-    default CompletableFuture<Games> getGames() {
-        return getGames(1);
+    public CubedPayShopAPI getShopAPI() {
+        return retrofit.create(CubedPayShopAPI.class);
     }
 
-    default CompletableFuture<Games> getGames(int page) {
-        return getGames(page, 20);
+    public CubedPayUserAPI getUserAPI() {
+        return retrofit.create(CubedPayUserAPI.class);
     }
 
-    @GET("/global/game")
-    CompletableFuture<Games> getGames(@Query("page") int page, @Query("perpage") int perpage);
-
-    @GET("/global/permissions")
-    CompletableFuture<Permissions> getPermissions(@Query("page") int page, @Query("perpage") int perpage);
-
-    @GET("/shop/{sid}/event")
-    CompletableFuture<Events> getEvents(@Path("sid") String shopId);
-
-    @POST("/shop/{sid}/event/{eid}/ack")
-    CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") String eventId);
-
-    default CompletableFuture<Payment> requestPayment(String shopId, String type, Item... item) {
-        return requestPayment(shopId, type, new Items(item));
+    public void registerListener(Object clazz) {
+        annotationProcessor.processAnnotation(clazz);
     }
 
-    @POST("/payment/request")
-    CompletableFuture<Payment> requestPayment(@Query("shop_id") String shopId, @Query("type") String type, @Body Items items);
-
-    default void registerListener(Object clazz) {
-        EventMap.annotationProcessor.processAnnotation(clazz);
-    }
-
-    default void startEvents(String shopID) {
-        if (EventMap.eventMap.containsKey(shopID)) return;
+    public void startEvents(String shopID) {
+        if (eventMap.containsKey(shopID)) return;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(new CubedEventRunnable(this, shopID), 5, 20, TimeUnit.SECONDS);
-        EventMap.eventMap.put(shopID, executor);
+        eventMap.put(shopID, executor);
     }
 
-    default boolean emitEvent(CubedEvent event) {
-        return EventMap.annotationProcessor.emitEvent(event);
+    public boolean emitEvent(CubedEvent event) {
+        return annotationProcessor.emitEvent(event);
     }
 
-    default void shutdown() throws InterruptedException {
-        Dispatcher dispatcher = DispatcherMap.dispatcherMap.remove(this);
+    public void shutdown() throws InterruptedException {
         dispatcher.cancelAll();
         dispatcher.executorService().shutdown();
         dispatcher.executorService().awaitTermination(10, TimeUnit.SECONDS);
-        for (ExecutorService executor : EventMap.eventMap.values()) {
+        for (ExecutorService executor : eventMap.values()) {
             executor.shutdown();
             executor.awaitTermination(10, TimeUnit.SECONDS);
         }
