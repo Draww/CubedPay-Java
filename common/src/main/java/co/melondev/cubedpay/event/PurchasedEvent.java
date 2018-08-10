@@ -1,29 +1,24 @@
 package co.melondev.cubedpay.event;
 
-import co.melondev.cubedpay.data.Order;
-import co.melondev.cubedpay.data.UserProfile;
+import co.melondev.cubedpay.data.Transaction;
 
 public class PurchasedEvent extends CubedEvent {
 
     private final String id;
-    private final Order order;
+    private final Transaction transaction;
     private boolean processed = false;
 
-    public PurchasedEvent(String id, Order order) {
+    public PurchasedEvent(String id, Transaction transaction) {
         this.id = id;
-        this.order = order;
+        this.transaction = transaction;
     }
 
     public String getId() {
         return this.id;
     }
 
-    public UserProfile getProfile() {
-        return order.getTransaction().getPayment().getProfile();
-    }
-
-    public Order getOrder() {
-        return order;
+    public Transaction getTransaction() {
+        return transaction;
     }
 
     public boolean isProcessed() {

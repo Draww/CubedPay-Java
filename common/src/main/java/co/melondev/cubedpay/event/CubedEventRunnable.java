@@ -21,8 +21,8 @@ public class CubedEventRunnable implements Runnable {
     public void run() {
         if (isRunning) return;
         isRunning = true;
-        shopAPI.getEvents(shopID).thenAccept(event -> {
-            event.getData().forEach(data -> {
+        shopAPI.getEvents(shopID).thenAccept(events -> {
+            events.getData().forEach(data -> {
                 //TODO Restore this after completing the event class.
 //                if (data.getObj() != null && data.getObj().getType() != null && data.getObj().getType().equalsIgnoreCase("order")) {
 //                    if (cubedPayAPI.emitEvent(new PurchasedEvent(data.getId(), data.getObj().getObj()))) {

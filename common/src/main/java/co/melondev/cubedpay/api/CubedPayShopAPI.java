@@ -14,7 +14,6 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface CubedPayShopAPI {
 
-    //region Basic
     @GET("/shop")
     CompletableFuture<Cursor<Shop>> getShops(@Query("page") int page, @Query("perpage") int perPage);
 
@@ -26,7 +25,6 @@ public interface CubedPayShopAPI {
 
     @GET("/shop/{sid}/customers")
     CompletableFuture<PublicUser> getCustomers(@Path("sid") String shopId);
-    //endregion
 
     //region Managers
     @POST("/shop/{sid}/manager")
@@ -85,7 +83,7 @@ public interface CubedPayShopAPI {
 
     //region Events
     @GET("/shop/{sid}/event")
-    CompletableFuture<Events> getEvents(@Path("sid") String shopId);
+    CompletableFuture<Cursor<Event>> getEvents(@Path("sid") String shopId);
 
     @POST("/shop/{sid}/event/{eid}/ack")
     CompletableFuture<EventAccept> acceptEvent(@Path("sid") String shopId, @Path("eid") String eventId);
@@ -198,6 +196,32 @@ public interface CubedPayShopAPI {
 
     @DELETE("/shop/{sid}/discount/{discount}/packageRef/{prid}")
     CompletableFuture<DeleteConfirmation> removePackageRefFromDiscount(@Path("sid") String shopId, @Path("discount") String discountId, @Path("prid") String packageRefId);
+    //endregion
+
+    //region Support
+    @GET("/shop/{sid}/ticket")
+    CompletableFuture<List<SupportTicket>> getSupportTickets(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
+
+    //TODO User specification
+    //TODO API scope
+    @POST("/shop/{sid}/ticket/open")
+    CompletableFuture<SupportTicket> createSupportTicket(@Path("sid") String shopId, @Query("from_name") String user_name, @Query("from_email") String user_email, @Query("subject") String subject, @Query("body") String body);
+
+    @GET("/shop/{sid}/ticket/{tid}")
+    CompletableFuture<SupportTicket> getSupportTicket(@Path("sid") String shopId, @Path("tid") String ticketId);
+
+    @PATCH("/shop/{sid}/ticket/{tid}")
+    CompletableFuture<SupportTicket> updateSupportTicket(@Path("sid") String shopId, @Path("tid") String ticketId, @Query("status") SupportTicket.Status status);
+
+    @POST("/shop/{sid}/ticket/{tid}/assign")
+    CompletableFuture<SupportTicket> assignManagerToSupportTicket(@Path("sid") String shopId, @Path("tid") String ticketId, @Query("assign_to") String user);
+
+    //TODO See if this is actually needed
+    @POST("/shop/{sid}/ticket/{tid}/read")
+    CompletableFuture<SupportTicket> updateSupportTicketReadState(@Path("sid") String shopId, @Path("tid") String ticketId);
+
+    @POST("/shop/{sid}/ticket/{tid}/reply")
+    CompletableFuture<SupportTicket> replyToSupportTicket(@Path("sid") String shopId, @Path("tid") String ticketId, @Query("message") String message);
     //endregion
 
 }

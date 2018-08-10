@@ -56,10 +56,9 @@ import co.melondev.cubedpay.data.Item;
 public class PaymentRequest {
     
     public static void main(String[] args){
-      CubedPayAPI cubedpay = CubedPayAPI.create("app_XXXXXXXXXXXXX", "oauth_XXXXXXXXXXXX");
-      cubedpay.requestPayment("shop_XXXXXXXXXXX", "sale", 
-        new Item("Item 1", 10.00, 1), //Add item on the fly
-        new Item("package_XXXXXXXXXX", 2) //Get already defined item from the store panel
+      CubedPayAPI cubedpay = new CubedPayAPI("app_XXXXXXXXXXXXX", "oauth_XXXXXXXXXXXX");
+      cubedpay.getShopAPI().requestPayment("shop_XXXXXXXXXXX", "sale", 
+        new Item("package_XXXXXXXXXX", 2)
       ).thenAccept(paymentRequest -> System.out.println("Send user to "+paymentRequest.getAuthorize().getRedirectTo()));
       
       cubedpay.shutdown();

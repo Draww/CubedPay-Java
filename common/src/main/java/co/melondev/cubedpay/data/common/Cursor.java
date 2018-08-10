@@ -5,12 +5,12 @@ import java.util.List;
 public class Cursor<T> {
 
     public class CursorInfo {
-        private String current_page = "";
+        private int current_page = 0;
         private int total_pages = 0;
         private int total_items = 0;
-        private String per_page = "";
+        private int per_page = 0;
 
-        public String getCurrentPage() {
+        public int getCurrentPage() {
             return current_page;
         }
 
@@ -22,7 +22,7 @@ public class Cursor<T> {
             return total_items;
         }
 
-        public String getPerPage() {
+        public int getPerPage() {
             return per_page;
         }
     }
