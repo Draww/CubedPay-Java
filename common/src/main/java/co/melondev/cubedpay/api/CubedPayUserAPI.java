@@ -10,9 +10,6 @@ import retrofit2.http.Query;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * @author theminecoder
- */
 public interface CubedPayUserAPI {
 
     @GET("/user")

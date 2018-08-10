@@ -1,8 +1,5 @@
 package co.melondev.cubedpay.data;
 
-/**
- * @author theminecoder
- */
 public class ShopPackageRef {
 
     public enum Type {

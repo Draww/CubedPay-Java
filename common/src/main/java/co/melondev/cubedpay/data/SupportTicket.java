@@ -4,9 +4,6 @@ import co.melondev.cubedpay.data.common.Date;
 
 import java.util.List;
 
-/**
- * @author theminecoder
- */
 public class SupportTicket {
 
     public enum Status {

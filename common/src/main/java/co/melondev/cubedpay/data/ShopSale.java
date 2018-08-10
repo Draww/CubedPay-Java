@@ -2,9 +2,6 @@ package co.melondev.cubedpay.data;
 
 import java.util.Date;
 
-/**
- * @author theminecoder
- */
 public class ShopSale {
 
     private String id;

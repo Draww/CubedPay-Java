@@ -2,9 +2,6 @@ package co.melondev.cubedpay.data;
 
 import java.util.List;
 
-/**
- * @author theminecoder
- */
 public class PublicShop {
 
     public class PublicGateway {

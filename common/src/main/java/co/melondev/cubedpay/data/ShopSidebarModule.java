@@ -2,9 +2,6 @@ package co.melondev.cubedpay.data;
 
 import java.util.Map;
 
-/**
- * @author theminecoder
- */
 public class ShopSidebarModule {
 
     public enum Type {
