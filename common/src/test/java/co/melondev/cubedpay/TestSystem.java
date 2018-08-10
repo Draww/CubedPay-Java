@@ -10,7 +10,7 @@ public class TestSystem {
 
         @PaymentHandler
         public void onPurchased(PurchasedEvent event) {
-            System.out.println(event.getProfile().getId());
+            System.out.println(event.getTransaction().getId());
             System.out.println("Purchased: " + event.getId());
             event.setProcessed(true);
         }
@@ -21,16 +21,17 @@ public class TestSystem {
         String accessToken = "";
         String shopID = "";
 
-        CubedPayAPI api = CubedPayAPI.create(appID, accessToken);
+        CubedPayAPI api = new CubedPayAPI(appID, accessToken);
         api.registerListener(new EventTester());
         api.startEvents(shopID);
 
-        api.requestPayment(shopID, "sale", new Item("Diamond", 1.0, 1), new Item("Diamond Sword", 2.0, 1))
-                .thenAccept(payment -> System.out.println("Payment url: " + payment.getAuthorize().getRedirectTo()))
+        api.getShopAPI().getPackages(shopID, 1, 10)
+                .thenCompose(packages -> api.getShopAPI().createTransaction(shopID, "user@user.com",
+                        new Item(packages.getData().get(0).getId(), 1)))
+                .thenAccept(transaction -> System.out.println("Payment Url: https://app.cubedpay.com/checkout/" + transaction.getId()))
                 .exceptionally(throwable -> {
                     throwable.printStackTrace();
                     return null;
-                }
-        );
+                });
     }
 }
