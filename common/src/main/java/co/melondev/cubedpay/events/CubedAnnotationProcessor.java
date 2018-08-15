@@ -36,7 +36,7 @@ public class CubedAnnotationProcessor {
         eventHandlers.get(event.getClass()).forEach((method) -> {
             Object owner = methodOwnerMap.get(method);
             try {
-                method.invoke(owner, event);
+                method.invoke(Modifier.isStatic(method.getModifiers()) ? null : owner, event);
                 emitted.set(event.isProcessed());
             } catch (IllegalAccessException e) {
                 System.out.println("CubedPay - Error: Please make sure the listener class is public! (" + owner.getClass().getName() + ")");
