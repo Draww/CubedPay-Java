@@ -51,7 +51,7 @@ public class CubedPayPlugin extends JavaPlugin {
 
         shops.stream()
                 .filter(shop -> !shop.trim().isEmpty())
-                .peek(shop -> getLogger().info("Starting event for shop " + shop))
+                .peek(shop -> getLogger().info("Starting events for shop " + shop))
                 .forEach(api::startEvents);
 
     }

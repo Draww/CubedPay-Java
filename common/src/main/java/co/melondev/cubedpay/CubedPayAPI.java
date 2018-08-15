@@ -2,10 +2,14 @@ package co.melondev.cubedpay;
 
 import co.melondev.cubedpay.api.CubedPayShopAPI;
 import co.melondev.cubedpay.api.CubedPayUserAPI;
+import co.melondev.cubedpay.data.Event;
 import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
-import co.melondev.cubedpay.event.CubedAnnotationProcessor;
-import co.melondev.cubedpay.event.CubedEvent;
-import co.melondev.cubedpay.event.CubedEventRunnable;
+import co.melondev.cubedpay.events.CubedAnnotationProcessor;
+import co.melondev.cubedpay.events.CubedEvent;
+import co.melondev.cubedpay.events.CubedEventRunnable;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -24,6 +28,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CubedPayAPI {
+
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Event.Type.class, (JsonDeserializer<Event.Type>) (json, typeOfT, context) ->
+                    Event.Type.findByTypeId(json.getAsString()))
+            .create();
 
     private CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();
     private final Map<String, ExecutorService> eventMap = new HashMap<>();
@@ -46,7 +55,7 @@ public class CubedPayAPI {
                         return super.responseBodyConverter(type, annotations, retrofit);
                     }
                 })
-                .addConverterFactory(new APIEnvelopeTransformerConverterFactory(GsonConverterFactory.create()))
+                .addConverterFactory(new APIEnvelopeTransformerConverterFactory(GsonConverterFactory.create(gson)))
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
@@ -65,8 +74,12 @@ public class CubedPayAPI {
         return retrofit.create(CubedPayUserAPI.class);
     }
 
-    public void registerListener(Object clazz) {
-        annotationProcessor.processAnnotation(clazz);
+    public void registerListener(Object listener) {
+        annotationProcessor.registerListener(listener);
+    }
+
+    public void removeListener(Object listener) {
+        annotationProcessor.removeListener(listener);
     }
 
     public void startEvents(String shopID) {

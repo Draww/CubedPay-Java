@@ -1,17 +1,16 @@
 package co.melondev.cubedpay;
 
-import co.melondev.cubedpay.data.Item;
-import co.melondev.cubedpay.event.PaymentHandler;
-import co.melondev.cubedpay.event.PurchasedEvent;
+import co.melondev.cubedpay.events.CubedEventHandler;
+import co.melondev.cubedpay.events.transaction.TransactionCompletedEvent;
 
 public class TestSystem {
 
     public static class EventTester {
 
-        @PaymentHandler
-        public void onPurchased(PurchasedEvent event) {
-            System.out.println(event.getTransaction().getId());
-            System.out.println("Purchased: " + event.getId());
+        @CubedEventHandler
+        public void onTransactionComplete(TransactionCompletedEvent event) {
+            System.out.println("Event ID: " + event.getEventId());
+            System.out.println("Purchased: " + event.getTransaction().getId());
             event.setProcessed(true);
         }
     }
