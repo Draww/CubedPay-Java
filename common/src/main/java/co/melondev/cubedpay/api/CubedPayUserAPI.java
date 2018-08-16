@@ -37,10 +37,10 @@ public interface CubedPayUserAPI {
     CompletableFuture<Transaction> getTransaction(@Path("tid") String transactionId);
 
     @GET("/user/transaction/{tid}/payments")
-    CompletableFuture<TransactionPayment> getTransactionPayments(@Path("tid") String transactionId);
+    CompletableFuture<List<TransactionPayment>> getTransactionPayments(@Path("tid") String transactionId);
 
     @GET("/user/transaction/{tid}/products")
-    CompletableFuture<TransactionPackage> getTransactionProducts(@Path("tid") String transactionId);
+    CompletableFuture<List<TransactionPackage>> getTransactionPackages(@Path("tid") String transactionId);
     //endregion
 
 }

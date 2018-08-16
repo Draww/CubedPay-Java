@@ -1,13 +1,19 @@
 package co.melondev.cubedpay.data;
 
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Currency;
 
 public class Transaction {
 
     public enum Status {
         PENDING,
         ABANDONED,
-        COMPLETED
+        COMPLETED;
+
+        public static Status findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     private String id;
@@ -16,8 +22,8 @@ public class Transaction {
     private PublicShop shop;
     private ShopDiscount discount;
     private String amount;
-    private Date created;
-    private Date completed;
+    private String created;
+    private String completed;
 
     public String getId() {
         return id;
@@ -43,11 +49,25 @@ public class Transaction {
         return amount;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public Date getCompleted() {
+    public String getCompleted() {
         return completed;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id='" + id + '\'' +
+                ", status=" + status +
+                ", user=" + user +
+                ", shop=" + shop +
+                ", discount=" + discount +
+                ", amount='" + amount + '\'' +
+                ", created='" + created + '\'' +
+                ", completed='" + completed + '\'' +
+                '}';
     }
 }

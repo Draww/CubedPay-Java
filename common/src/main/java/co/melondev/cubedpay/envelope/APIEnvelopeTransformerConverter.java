@@ -23,19 +23,19 @@ public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBod
     public T convert(ResponseBody value) throws IOException {
         JsonObject fullResponse;
         String valueString = value.string();
-        // System.out.println(valueString);
+//        System.out.println(valueString);
         try {
             fullResponse = gson.fromJson(valueString, JsonElement.class).getAsJsonObject();
         } catch (JsonParseException e) {
             throw new CubedPayException(500, "Server sent back invalid json:\n" + valueString);
         }
-        JsonObject returnResponse = fullResponse.getAsJsonObject("return");
 
         if (!fullResponse.getAsJsonPrimitive("success").getAsBoolean()) {
-            throw new CubedPayException(returnResponse.getAsJsonPrimitive("code").getAsInt(),
-                    returnResponse.getAsJsonPrimitive("message").getAsString());
+            JsonObject errorObject = fullResponse.getAsJsonObject("return");
+            throw new CubedPayException(errorObject.getAsJsonPrimitive("code").getAsInt(),
+                    errorObject.getAsJsonPrimitive("message").getAsString());
         }
 
-        return delegateConverter.convert(ResponseBody.create(value.contentType(), returnResponse.toString()));
+        return delegateConverter.convert(ResponseBody.create(value.contentType(), fullResponse.get("return").toString()));
     }
 }

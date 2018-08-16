@@ -2,7 +2,7 @@ package co.melondev.cubedpay;
 
 import co.melondev.cubedpay.api.CubedPayShopAPI;
 import co.melondev.cubedpay.api.CubedPayUserAPI;
-import co.melondev.cubedpay.data.Event;
+import co.melondev.cubedpay.data.*;
 import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
 import co.melondev.cubedpay.events.CubedAnnotationProcessor;
 import co.melondev.cubedpay.events.CubedEvent;
@@ -31,7 +31,21 @@ public class CubedPayAPI {
 
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Event.Type.class, (JsonDeserializer<Event.Type>) (json, typeOfT, context) ->
-                    Event.Type.findByTypeId(json.getAsString()))
+                    Event.Type.findById(json.getAsString()))
+            .registerTypeAdapter(Transaction.Status.class, (JsonDeserializer<Transaction.Status>) (json, typeOfT, context) ->
+                    Transaction.Status.findById(json.getAsString()))
+            .registerTypeAdapter(SupportTicket.Status.class, (JsonDeserializer<SupportTicket.Status>) (json, typeOfT, context) ->
+                    SupportTicket.Status.findById(json.getAsString()))
+            .registerTypeAdapter(ShopSidebarModule.Side.class, (JsonDeserializer<ShopSidebarModule.Side>) (json, typeOfT, context) ->
+                    ShopSidebarModule.Side.findById(json.getAsString()))
+            .registerTypeAdapter(ShopSidebarModule.Type.class, (JsonDeserializer<ShopSidebarModule.Type>) (json, typeOfT, context) ->
+                    ShopSidebarModule.Type.findById(json.getAsString()))
+            .registerTypeAdapter(ShopPage.Display.class, (JsonDeserializer<ShopPage.Display>) (json, typeOfT, context) ->
+                    ShopPage.Display.findById(json.getAsString()))
+            .registerTypeAdapter(ShopPage.Type.class, (JsonDeserializer<ShopPage.Type>) (json, typeOfT, context) ->
+                    ShopPage.Type.findById(json.getAsString()))
+            .registerTypeAdapter(ShopPackageRef.Type.class, (JsonDeserializer<ShopPackageRef.Type>) (json, typeOfT, context) ->
+                    ShopPackageRef.Type.findById(json.getAsString()))
             .create();
 
     private CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();

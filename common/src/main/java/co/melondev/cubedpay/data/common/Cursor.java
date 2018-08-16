@@ -25,6 +25,16 @@ public class Cursor<T> {
         public int getPerPage() {
             return per_page;
         }
+
+        @Override
+        public String toString() {
+            return "CursorInfo{" +
+                    "current_page=" + current_page +
+                    ", total_pages=" + total_pages +
+                    ", total_items=" + total_items +
+                    ", per_page=" + per_page +
+                    '}';
+        }
     }
 
     private CursorInfo cursor;
@@ -37,5 +47,13 @@ public class Cursor<T> {
 
     public List<T> getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Cursor{" +
+                "cursor=" + cursor +
+                ", data=" + data +
+                '}';
     }
 }

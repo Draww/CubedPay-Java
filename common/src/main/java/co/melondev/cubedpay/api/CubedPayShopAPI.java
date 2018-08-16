@@ -4,7 +4,6 @@ import co.melondev.cubedpay.data.*;
 import co.melondev.cubedpay.data.common.Cursor;
 import retrofit2.http.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -71,7 +70,7 @@ public interface CubedPayShopAPI {
     @PUT("/shop/{sid}/transaction/{tid}/discount")
     CompletableFuture<Transaction> setTransactionDiscount(@Path("sid") String shopId, @Path("tid") String transactionId, @Query("discount") String discountCode);
 
-    @GET("/shop/{sid}/transaction/{tid}/packages")
+    @GET("/shop/{sid}/transaction/{tid}/products")
     CompletableFuture<List<TransactionPackage>> getTransactionPackages(@Path("sid") String shopId, @Path("tid") String transactionId);
 
     @GET("/shop/{sid}/transaction/{tid}/payments")
@@ -151,10 +150,10 @@ public interface CubedPayShopAPI {
     CompletableFuture<ShopSale> getSale(@Path("sid") String shopId, @Path("sale") String saleId);
 
     @POST("/shop/{sid}/sale")
-    CompletableFuture<ShopSale> createSale(@Path("sid") String shopId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") Date starts, @Query("ends") Date ends);
+    CompletableFuture<ShopSale> createSale(@Path("sid") String shopId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") long starts, @Query("ends") long ends);
 
     @PATCH("/shop/{sid}/sale/{sale}")
-    CompletableFuture<ShopSale> updateSale(@Path("sid") String shopId, @Path("sale") String saleId, @Query(" name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") Date starts, @Query("ends") Date ends);
+    CompletableFuture<ShopSale> updateSale(@Path("sid") String shopId, @Path("sale") String saleId, @Query(" name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") long starts, @Query("ends") long ends);
 
     @DELETE("/shop/{sid}/sale/{sale}")
     CompletableFuture<DeleteConfirmation> deleteSale(@Path("sid") String shopId, @Path("sale") String saleId);
@@ -177,10 +176,10 @@ public interface CubedPayShopAPI {
     CompletableFuture<ShopDiscount> getDiscount(@Path("sid") String shopId, @Path("discount") String saleId);
 
     @POST("/shop/{sid}/discount")
-    CompletableFuture<ShopDiscount> createDiscount(@Path("sid") String shopId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("starts") Date starts, @Query("ends") Date ends, @Query("code") String code, @Query("maxUses") int masUses);
+    CompletableFuture<ShopDiscount> createDiscount(@Path("sid") String shopId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("starts") long starts, @Query("ends") long ends, @Query("code") String code, @Query("maxUses") int masUses);
 
     @PATCH("/shop/{sid}/discount/{discount}")
-    CompletableFuture<ShopDiscount> updateDiscount(@Path("sid") String shopId, @Path("discount") String saleId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("starts") Date starts, @Query("ends") Date ends, @Query("code") String code, @Query("maxUses") int masUses);
+    CompletableFuture<ShopDiscount> updateDiscount(@Path("sid") String shopId, @Path("discount") String saleId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("starts") long starts, @Query("ends") long ends, @Query("code") String code, @Query("maxUses") int masUses);
 
     @DELETE("/shop/{sid}/discount/{discount}")
     CompletableFuture<DeleteConfirmation> deleteDiscount(@Path("sid") String shopId, @Path("discount") String saleId);

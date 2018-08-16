@@ -2,6 +2,7 @@ package co.melondev.cubedpay.data;
 
 import co.melondev.cubedpay.data.common.Date;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SupportTicket {
@@ -11,7 +12,12 @@ public class SupportTicket {
         PENDING,
         HOLD,
         PROGRESS,
-        CLOSED
+        CLOSED;
+
+        public static Status findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     public class SupportUser {

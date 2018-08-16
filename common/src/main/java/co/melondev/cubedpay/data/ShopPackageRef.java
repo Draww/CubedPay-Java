@@ -1,9 +1,16 @@
 package co.melondev.cubedpay.data;
 
+import java.util.Arrays;
+
 public class ShopPackageRef {
 
     public enum Type {
-        ID
+        ID;
+
+        public static Type findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     private String id;

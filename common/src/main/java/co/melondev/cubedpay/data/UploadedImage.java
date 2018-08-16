@@ -12,4 +12,11 @@ public class UploadedImage {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public String toString() {
+        return "UploadedImage{" +
+                "url='" + url + '\'' +
+                '}';
+    }
 }

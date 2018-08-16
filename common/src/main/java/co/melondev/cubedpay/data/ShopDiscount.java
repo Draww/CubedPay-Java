@@ -1,13 +1,11 @@
 package co.melondev.cubedpay.data;
 
-import java.util.Date;
-
 public class ShopDiscount {
 
     private String id;
     private String name;
-    private Date starts;
-    private Date ends;
+    private String starts;
+    private String ends;
     private boolean active;
     private double amount;
     private boolean percent;
@@ -23,11 +21,11 @@ public class ShopDiscount {
         return name;
     }
 
-    public Date getStarts() {
+    public String getStarts() {
         return starts;
     }
 
-    public Date getEnds() {
+    public String getEnds() {
         return ends;
     }
 

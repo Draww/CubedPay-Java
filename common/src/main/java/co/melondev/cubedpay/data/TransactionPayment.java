@@ -1,14 +1,12 @@
 package co.melondev.cubedpay.data;
 
-import java.util.Date;
-
 public class TransactionPayment {
 
     private String id;
     private String gateway;
     private double charged;
-    private Date created;
-    private Date compelted;
+    private String created;
+    private String compelted;
 
     public String getId() {
         return id;
@@ -22,11 +20,11 @@ public class TransactionPayment {
         return charged;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public Date getCompelted() {
+    public String getCompelted() {
         return compelted;
     }
 }

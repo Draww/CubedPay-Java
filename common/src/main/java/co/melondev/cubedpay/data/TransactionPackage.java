@@ -42,4 +42,18 @@ public class TransactionPackage {
     public double getSaleName() {
         return saleName;
     }
+
+    @Override
+    public String toString() {
+        return "TransactionPackage{" +
+                "id='" + id + '\'' +
+                ", packageId='" + packageId + '\'' +
+                ", name='" + name + '\'' +
+                ", icon=" + icon +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", salePrice=" + salePrice +
+                ", saleName=" + saleName +
+                '}';
+    }
 }

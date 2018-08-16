@@ -1,5 +1,6 @@
 package co.melondev.cubedpay.data;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class ShopSidebarModule {
@@ -8,12 +9,22 @@ public class ShopSidebarModule {
         HTML,
         PROMOTED,
         CART,
-        ACCOUNT
+        ACCOUNT;
+
+        public static Type findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     public enum Side {
         LEFT,
-        RIGHT
+        RIGHT;
+
+        public static Side findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     private String id;

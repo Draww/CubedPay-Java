@@ -1,13 +1,25 @@
 package co.melondev.cubedpay.data;
 
+import java.util.Arrays;
+
 public class ShopPage {
 
     public enum Type {
-        BASIC
+        BASIC;
+
+        public static Type findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     public enum Display {
-        GRID
+        GRID;
+
+        public static Display findById(String id) {
+            return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     private String id;

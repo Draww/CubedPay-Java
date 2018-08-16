@@ -63,7 +63,7 @@ public class Event {
             return creator;
         }
 
-        public static Type findByTypeId(String typeID) {
+        public static Type findById(String typeID) {
             return Arrays.stream(values()).filter(type -> {
                 if (type.name().equalsIgnoreCase(typeID) || type.name().replace('_', '-').equalsIgnoreCase(typeID)) {
                     return true;
