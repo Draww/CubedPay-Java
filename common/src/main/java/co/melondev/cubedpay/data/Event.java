@@ -80,21 +80,21 @@ public class Event {
         private static final Gson gson = new Gson();
 
         private String type;
-        private JsonObject object;
+        private JsonObject obj;
 
         public String getType() {
             return type;
         }
 
         public <T> T getObject(Class<T> objectClazz) {
-            return gson.fromJson(object, objectClazz);
+            return gson.fromJson(obj, objectClazz);
         }
 
         @Override
         public String toString() {
             return "Event.Object{" +
                     "type='" + type + '\'' +
-                    ", object=" + object +
+                    ", object=" + obj +
                     '}';
         }
     }

@@ -43,7 +43,7 @@ public class CubedAnnotationProcessor {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 System.out.println("CubedPay - Error: Invoke exception on " + owner.getClass().getSimpleName() + "#" + method.getName() + "()");
-                e.printStackTrace();
+                e.getCause().printStackTrace();
             } catch (IllegalArgumentException ignored) {
             }
         });

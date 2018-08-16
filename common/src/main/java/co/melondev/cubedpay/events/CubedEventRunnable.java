@@ -21,7 +21,9 @@ public class CubedEventRunnable implements Runnable {
     public void run() {
         if (isRunning) return;
         isRunning = true;
+        System.out.println("Polling for CubedPay events...");
         shopAPI.getEvents(shopID).thenAccept(events -> {
+            System.out.println("Found " + events.getData().size() + " CubedPay events to process..");
             events.getData().forEach(data -> {
                 if (data.getType() != null) {
                     CubedEvent event = data.getType().getCreator().apply(data);
