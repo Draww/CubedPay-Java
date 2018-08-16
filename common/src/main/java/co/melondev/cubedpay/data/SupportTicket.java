@@ -38,7 +38,7 @@ public class SupportTicket {
         }
     }
 
-    public class SupportMessage {
+    public class Reply {
         private String id;
         private SupportUser from;
         private String message;
@@ -66,7 +66,7 @@ public class SupportTicket {
     private Status status;
     private PublicUser assigned;
     private String subject;
-    private List<SupportMessage> conversation;
+    private List<Reply> conversation;
     private PublicShop shop;
 
     public String getId() {
@@ -89,7 +89,7 @@ public class SupportTicket {
         return subject;
     }
 
-    public List<SupportMessage> getConversation() {
+    public List<Reply> getConversation() {
         return conversation;
     }
 

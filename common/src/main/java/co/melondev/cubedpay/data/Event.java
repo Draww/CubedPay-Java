@@ -2,7 +2,9 @@ package co.melondev.cubedpay.data;
 
 import co.melondev.cubedpay.data.common.Date;
 import co.melondev.cubedpay.events.CubedEvent;
-import co.melondev.cubedpay.events.transaction.TransactionCompletedEvent;
+import co.melondev.cubedpay.events.shop.support.SupportTicketNewReply;
+import co.melondev.cubedpay.events.shop.support.SupportTicketOpened;
+import co.melondev.cubedpay.events.shop.transaction.TransactionCompletedEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -49,6 +51,8 @@ public class Event {
     }
 
     public enum Type {
+        SUPPORT_OPENED(SupportTicketOpened::new),
+        SUPPORT_REPLY(SupportTicketNewReply::new),
         TRANSACTION_COMPLETED(TransactionCompletedEvent::new, "transaction_purchase");
 
         private Function<Event, CubedEvent> creator;

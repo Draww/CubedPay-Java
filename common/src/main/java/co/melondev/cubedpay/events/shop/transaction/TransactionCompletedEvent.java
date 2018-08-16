@@ -1,4 +1,4 @@
-package co.melondev.cubedpay.events.transaction;
+package co.melondev.cubedpay.events.shop.transaction;
 
 import co.melondev.cubedpay.data.Event;
 
