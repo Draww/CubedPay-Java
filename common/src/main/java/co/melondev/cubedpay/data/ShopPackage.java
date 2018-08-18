@@ -4,28 +4,28 @@ public class ShopPackage {
 
     public class Sale {
         private String name;
-        private String oldPrice;
-        private String newPrice;
+        private String old_price;
+        private String new_price;
 
         public String getName() {
             return name;
         }
 
         public String getOldPrice() {
-            return oldPrice;
+            return old_price;
         }
 
         public String getNewPrice() {
-            return newPrice;
+            return new_price;
         }
     }
 
     private String id;
     private String name;
     private UploadedImage icon;
-    private String descrption;
+    private String description;
     private String price;
-    private boolean isPublic;
+    private boolean is_public;
     private Sale sale;
 
     public String getId() {
@@ -40,8 +40,8 @@ public class ShopPackage {
         return icon;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
     public String getPrice() {
@@ -49,7 +49,7 @@ public class ShopPackage {
     }
 
     public boolean isPublic() {
-        return isPublic;
+        return is_public;
     }
 
     public Sale getSale() {
