@@ -1,7 +1,8 @@
 package co.melondev.cubedpay;
 
+import co.melondev.cubedpay.data.Item;
 import co.melondev.cubedpay.events.CubedEventHandler;
-import co.melondev.cubedpay.events.transaction.TransactionCompletedEvent;
+import co.melondev.cubedpay.events.shop.transaction.TransactionCompletedEvent;
 
 public class TestSystem {
 
