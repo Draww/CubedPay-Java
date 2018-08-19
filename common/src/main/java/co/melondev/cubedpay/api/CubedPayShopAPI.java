@@ -198,8 +198,6 @@ public interface CubedPayShopAPI {
     @GET("/shop/{sid}/ticket")
     CompletableFuture<List<SupportTicket>> getSupportTickets(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
 
-    //TODO User specification
-    //TODO API scope
     @POST("/shop/{sid}/ticket/open")
     CompletableFuture<SupportTicket> createSupportTicket(@Path("sid") String shopId, @Query("from_name") String user_name, @Query("from_email") String user_email, @Query("subject") String subject, @Query("body") String body);
 

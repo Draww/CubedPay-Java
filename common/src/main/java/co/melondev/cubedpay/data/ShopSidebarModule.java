@@ -1,5 +1,7 @@
 package co.melondev.cubedpay.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Arrays;
 import java.util.Map;
 
@@ -31,7 +33,8 @@ public class ShopSidebarModule {
     private Side side;
     private Type type;
     private Map<String, Object> settings;
-    private boolean isPublic; //todo fix
+    @SerializedName("public")
+    private boolean isPublic;
     private int order;
 
     public String getId() {

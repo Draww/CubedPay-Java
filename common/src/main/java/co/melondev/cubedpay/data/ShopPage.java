@@ -1,5 +1,7 @@
 package co.melondev.cubedpay.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Arrays;
 
 public class ShopPage {
@@ -25,7 +27,8 @@ public class ShopPage {
     private String id;
     private String name;
     private String description;
-    private boolean isPublic; //TODO Fix name from api (java keywords pls)
+    @SerializedName("public")
+    private boolean isPublic;
     private Type type;
     private Display display;
     private int order;
