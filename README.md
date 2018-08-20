@@ -53,10 +53,14 @@ public class PaymentRequest {
     
     public static void main(String[] args){
       CubedPayAPI cubedpay = new CubedPayAPI("app_XXXXXXXXXXXXX", "oauth_XXXXXXXXXXXX");
-      cubedpay.getShopAPI().requestPayment("shop_XXXXXXXXXXX", "sale", 
-        new Item("package_XXXXXXXXXX", 2)
-      ).thenAccept(paymentRequest -> System.out.println("Send user to "+paymentRequest.getAuthorize().getRedirectTo()));
-      
+      cubedpay.getShopAPI().getPackages(shopID, 1, 10)
+                      .thenCompose(packages -> api.getShopAPI().createTransaction(shopID, "user@user.com",
+                              new Item(packages.getData().get(0).getId(), 1)))
+                      .thenAccept(transaction -> System.out.println("Payment Url: https://app.cubedpay.com/checkout/" + transaction.getId()))
+                      .exceptionally(throwable -> {
+                          throwable.printStackTrace();
+                          return null;
+                      });
       cubedpay.shutdown();
     }
     

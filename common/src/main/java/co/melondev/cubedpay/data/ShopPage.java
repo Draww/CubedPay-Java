@@ -16,7 +16,8 @@ public class ShopPage {
     }
 
     public enum Display {
-        GRID;
+        GRID,
+        LIST;
 
         public static Display findById(String id) {
             return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))

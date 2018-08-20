@@ -16,6 +16,7 @@ public class Shop {
     private String time_zone = "";
     private List<User> members = new ArrayList<>();
     private List<Gateway> gateways = new ArrayList<>();
+    private ShopPlan plan;
 
     public String getId() {
         return id;
@@ -59,6 +60,10 @@ public class Shop {
 
     public List<Gateway> getGateways() {
         return gateways;
+    }
+
+    public ShopPlan getPlan() {
+        return plan;
     }
 
     @Override

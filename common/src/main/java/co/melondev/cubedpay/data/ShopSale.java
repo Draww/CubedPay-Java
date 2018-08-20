@@ -48,4 +48,19 @@ public class ShopSale {
     public String getBanner() {
         return banner;
     }
+
+    @Override
+    public String toString() {
+        return "ShopSale{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", starts='" + starts + '\'' +
+                ", ends='" + ends + '\'' +
+                ", active=" + active +
+                ", amount=" + amount +
+                ", percent=" + percent +
+                ", visible=" + visible +
+                ", banner='" + banner + '\'' +
+                '}';
+    }
 }

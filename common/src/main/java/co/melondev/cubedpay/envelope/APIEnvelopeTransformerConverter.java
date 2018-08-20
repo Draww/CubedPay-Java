@@ -30,6 +30,10 @@ public class APIEnvelopeTransformerConverter<T> implements Converter<ResponseBod
             throw new CubedPayException(500, "Server sent back invalid json:\n" + valueString);
         }
 
+//        if (fullResponse.has("debug") && fullResponse.get("debug").isJsonObject()) {
+//            System.out.println("Cubed DEBUG: " + fullResponse.get("debug").toString());
+//        }
+
         if (!fullResponse.getAsJsonPrimitive("success").getAsBoolean()) {
             JsonObject errorObject = fullResponse.getAsJsonObject("return");
             throw new CubedPayException(errorObject.getAsJsonPrimitive("code").getAsInt(),

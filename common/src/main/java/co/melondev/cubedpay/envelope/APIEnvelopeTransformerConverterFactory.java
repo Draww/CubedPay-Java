@@ -34,6 +34,9 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
         if (type instanceof Class && (((Class) type).isPrimitive() || ((Class) type) == String.class)) {
             return null;
         }
+        if (type instanceof Class && ((Class) type).isEnum()) {
+            return (Converter<Object, String>) value -> ((Enum) value).name();
+        }
         return gson::toJson;
     }
 }

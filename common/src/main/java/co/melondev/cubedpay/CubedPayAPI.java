@@ -7,9 +7,11 @@ import co.melondev.cubedpay.envelope.APIEnvelopeTransformerConverterFactory;
 import co.melondev.cubedpay.events.CubedAnnotationProcessor;
 import co.melondev.cubedpay.events.CubedEvent;
 import co.melondev.cubedpay.events.CubedEventRunnable;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -18,6 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.java8.Java8CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -46,6 +49,36 @@ public class CubedPayAPI {
                     ShopPage.Type.findById(json.getAsString()))
             .registerTypeAdapter(ShopPackageRef.Type.class, (JsonDeserializer<ShopPackageRef.Type>) (json, typeOfT, context) ->
                     ShopPackageRef.Type.findById(json.getAsString()))
+            .registerTypeAdapterFactory(new TypeAdapterFactory() {
+                @Override
+                public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+                    return type.getRawType() == boolean.class || type.getRawType() == Boolean.class ? (TypeAdapter<T>) new TypeAdapter<Boolean>() {
+                        @Override
+                        public Boolean read(JsonReader in) throws IOException {
+                            if (in.peek() == JsonToken.NULL) {
+                                in.nextNull();
+                                return null;
+                            } else if (in.peek() == JsonToken.STRING) {
+                                String value = in.nextString();
+                                if (value.toLowerCase().equals("1")) {
+                                    return true;
+                                }
+                                if (value.toLowerCase().equals("0")) {
+                                    return false;
+                                }
+                                // support strings for compatibility with GSON 1.7
+                                return Boolean.parseBoolean(value);
+                            }
+                            return in.nextBoolean();
+                        }
+
+                        @Override
+                        public void write(JsonWriter out, Boolean value) throws IOException {
+                            out.value((boolean) value);
+                        }
+                    } : null;
+                }
+            })
             .create();
 
     private CubedAnnotationProcessor annotationProcessor = new CubedAnnotationProcessor();

@@ -153,7 +153,7 @@ public interface CubedPayShopAPI {
     CompletableFuture<ShopSale> createSale(@Path("sid") String shopId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") long starts, @Query("ends") long ends);
 
     @PATCH("/shop/{sid}/sale/{sale}")
-    CompletableFuture<ShopSale> updateSale(@Path("sid") String shopId, @Path("sale") String saleId, @Query(" name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") long starts, @Query("ends") long ends);
+    CompletableFuture<ShopSale> updateSale(@Path("sid") String shopId, @Path("sale") String saleId, @Query("name") String name, @Query("amount") double amount, @Query("percent") boolean percent, @Query("active") boolean active, @Query("visible") boolean visible, @Query("banner") String banner, @Query("starts") long starts, @Query("ends") long ends);
 
     @DELETE("/shop/{sid}/sale/{sale}")
     CompletableFuture<DeleteConfirmation> deleteSale(@Path("sid") String shopId, @Path("sale") String saleId);
@@ -196,7 +196,7 @@ public interface CubedPayShopAPI {
 
     //region Support
     @GET("/shop/{sid}/ticket")
-    CompletableFuture<List<SupportTicket>> getSupportTickets(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
+    CompletableFuture<Cursor<SupportTicket>> getSupportTickets(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perpage);
 
     @POST("/shop/{sid}/ticket/open")
     CompletableFuture<SupportTicket> createSupportTicket(@Path("sid") String shopId, @Query("from_name") String user_name, @Query("from_email") String user_email, @Query("subject") String subject, @Query("body") String body);

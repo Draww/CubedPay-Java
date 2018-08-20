@@ -27,7 +27,7 @@ public class ShopPackage {
     private UploadedImage icon;
     private String description;
     private String price;
-    @SerializedName("public")
+    @SerializedName("is_public")
     private boolean isPublic;
     private Sale sale;
 
