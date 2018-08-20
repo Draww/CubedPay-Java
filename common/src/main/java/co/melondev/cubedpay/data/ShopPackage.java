@@ -1,5 +1,7 @@
 package co.melondev.cubedpay.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ShopPackage {
 
     public class Sale {
@@ -25,7 +27,8 @@ public class ShopPackage {
     private UploadedImage icon;
     private String description;
     private String price;
-    private boolean is_public;
+    @SerializedName("public")
+    private boolean isPublic;
     private Sale sale;
 
     public String getId() {
@@ -49,7 +52,7 @@ public class ShopPackage {
     }
 
     public boolean isPublic() {
-        return is_public;
+        return isPublic;
     }
 
     public Sale getSale() {
