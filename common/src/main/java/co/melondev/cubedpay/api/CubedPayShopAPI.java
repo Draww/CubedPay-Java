@@ -4,6 +4,7 @@ import co.melondev.cubedpay.data.*;
 import co.melondev.cubedpay.data.common.Cursor;
 import retrofit2.http.*;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -18,6 +19,9 @@ public interface CubedPayShopAPI {
 
     @POST("/shop/{sid}")
     CompletableFuture<Shop> updateShop(@Path("sid") String shopId, @Query("name") String name, @Query("sandbox") boolean sandbox);
+
+    @POST("/shop/{sid}")
+    CompletableFuture<Shop> updateShop(@Path("sid") String shopId, @Query("name") String name, @Query("sandbox") boolean sandbox, @Query("logo") File logo);
 
     @GET("/shop/{sid}/customers")
     CompletableFuture<PublicUser> getCustomers(@Path("sid") String shopId);
@@ -46,8 +50,14 @@ public interface CubedPayShopAPI {
     @POST("/shop/{sid}/package")
     CompletableFuture<ShopPackage> createPackage(@Path("sid") String shopId, @Query("name") String name, @Query("description") String description, @Query("price") double price, @Query("public") boolean isPublic);
 
+    @POST("/shop/{sid}/package")
+    CompletableFuture<ShopPackage> createPackage(@Path("sid") String shopId, @Query("name") String name, @Query("description") String description, @Query("price") double price, @Query("public") boolean isPublic, @Query("icon") File icon);
+
     @PATCH("/shop/{sid}/package/{pid}")
     CompletableFuture<ShopPackage> updatePackage(@Path("sid") String shopId, @Path("pid") String packageId, @Query("name") String name, @Query("description") String description, @Query("price") double price, @Query("public") boolean isPublic);
+
+    @PATCH("/shop/{sid}/package/{pid}")
+    CompletableFuture<ShopPackage> updatePackage(@Path("sid") String shopId, @Path("pid") String packageId, @Query("name") String name, @Query("description") String description, @Query("price") double price, @Query("public") boolean isPublic, @Query("icon") File icon);
 
     @DELETE("/shop/{sid}/package/{pid}")
     CompletableFuture<DeleteConfirmation> deletePackage(@Path("sid") String shopId, @Path("pid") String packageId);
@@ -60,12 +70,12 @@ public interface CubedPayShopAPI {
     @GET("/shop/{sid}/transaction/{tid}")
     CompletableFuture<Transaction> getTransaction(@Path("sid") String shopId, @Path("tid") String transactionId);
 
-    default CompletableFuture<Transaction> createTransaction(String shopId, String customer, Item... item) {
-        return createTransaction(shopId, customer, new Items(item));
+    default CompletableFuture<Transaction> createTransaction(String shopId, String customer, String profile, Item... item) {
+        return createTransaction(shopId, customer, profile, new Items(item));
     }
 
     @POST("/shop/{sid}/transaction")
-    CompletableFuture<Transaction> createTransaction(@Path("sid") String shopId, @Query("customer") String customer, @Body Items items);
+    CompletableFuture<Transaction> createTransaction(@Path("sid") String shopId, @Query("customer") String customer, @Query("profile") String profile, @Body Items items);
 
     @PUT("/shop/{sid}/transaction/{tid}/discount")
     CompletableFuture<Transaction> setTransactionDiscount(@Path("sid") String shopId, @Path("tid") String transactionId, @Query("discount") String discountCode);

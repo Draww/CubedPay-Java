@@ -7,8 +7,14 @@ import retrofit2.Converter;
 import retrofit2.Converter.Factory;
 import retrofit2.Retrofit;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.net.URLConnection;
+import java.util.Base64;
 
 public class APIEnvelopeTransformerConverterFactory extends Factory {
 
@@ -36,6 +42,39 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
         }
         if (type instanceof Class && ((Class) type).isEnum()) {
             return (Converter<Object, String>) value -> ((Enum) value).name();
+        }
+        if (type instanceof Class && ((Class) type) == File.class) {
+            return (Converter<Object, String>) value -> {
+                File file = (File) value;
+                BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+
+                long length = file.length();
+                if (length > Integer.MAX_VALUE) {
+                    throw new IOException("File is too large to be sent");
+                }
+                byte[] bytes = new byte[(int) length];
+                int offset = 0;
+                int numRead = 0;
+                while (offset < bytes.length
+                        && (numRead = in.read(bytes, offset, bytes.length - offset)) >= 0) {
+                    offset += numRead;
+                }
+                if (offset < bytes.length) {
+                    throw new IOException("Could not completely read file " + file.getName());
+                }
+                in.close();
+
+                //I know what your thinking, but this is how I got things to work
+                in = new BufferedInputStream(new FileInputStream(file));
+                String mimeType = URLConnection.guessContentTypeFromStream(in);
+                in.close();
+
+                if (!mimeType.toLowerCase().startsWith("image/")) {
+                    throw new IOException("Only can upload image files");
+                }
+
+                return "data:" + mimeType + ";base64," + Base64.getEncoder().encodeToString(bytes);
+            };
         }
         return gson::toJson;
     }
