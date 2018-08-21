@@ -37,6 +37,9 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
 
     @Override
     public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        if (type instanceof Class && (type == boolean.class || type == Boolean.class)) {
+            return (Converter<Object, String>) value -> (boolean) value ? "1" : "0";
+        }
         if (type instanceof Class && (((Class) type).isPrimitive() || ((Class) type) == String.class)) {
             return null;
         }
@@ -45,6 +48,9 @@ public class APIEnvelopeTransformerConverterFactory extends Factory {
         }
         if (type instanceof Class && ((Class) type) == File.class) {
             return (Converter<Object, String>) value -> {
+                if (value == null) {
+                    return "remove";
+                }
                 File file = (File) value;
                 BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
 
