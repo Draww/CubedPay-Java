@@ -26,7 +26,7 @@ public class TestSystem {
         api.startEvents(shopID);
 
         api.getShopAPI().getPackages(shopID, 1, 10)
-                .thenCompose(packages -> api.getShopAPI().createTransaction(shopID, "user@user.com",
+                .thenCompose(packages -> api.getShopAPI().createTransaction(shopID, "user@user.com", "profile",
                         new Item(packages.getData().get(0).getId(), 1)))
                 .thenAccept(transaction -> System.out.println("Payment Url: https://app.cubedpay.com/checkout/" + transaction.getId()))
                 .exceptionally(throwable -> {

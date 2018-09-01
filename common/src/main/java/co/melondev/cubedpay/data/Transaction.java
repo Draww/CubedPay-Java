@@ -1,7 +1,6 @@
 package co.melondev.cubedpay.data;
 
 import java.util.Arrays;
-import java.util.Currency;
 
 public class Transaction {
 
@@ -22,6 +21,7 @@ public class Transaction {
     private PublicShop shop;
     private ShopDiscount discount;
     private String amount;
+    private UserProfile profile;
     private String created;
     private String completed;
 
@@ -49,6 +49,10 @@ public class Transaction {
         return amount;
     }
 
+    public UserProfile getProfile() {
+        return profile;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -66,6 +70,7 @@ public class Transaction {
                 ", shop=" + shop +
                 ", discount=" + discount +
                 ", amount='" + amount + '\'' +
+                ", profile='" + profile + '\'' +
                 ", created='" + created + '\'' +
                 ", completed='" + completed + '\'' +
                 '}';
