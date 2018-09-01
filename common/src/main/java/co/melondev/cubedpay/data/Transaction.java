@@ -21,7 +21,7 @@ public class Transaction {
     private PublicShop shop;
     private ShopDiscount discount;
     private String amount;
-    private UserProfile profile;
+    private String profile;
     private String created;
     private String completed;
 
@@ -49,7 +49,7 @@ public class Transaction {
         return amount;
     }
 
-    public UserProfile getProfile() {
+    public String getProfile() {
         return profile;
     }
 
