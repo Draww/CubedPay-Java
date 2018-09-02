@@ -6,7 +6,7 @@ public class TransactionPayment {
     private String gateway;
     private double charged;
     private String created;
-    private String compelted;
+    private String completed;
 
     public String getId() {
         return id;
@@ -24,7 +24,7 @@ public class TransactionPayment {
         return created;
     }
 
-    public String getCompelted() {
-        return compelted;
+    public String getCompleted() {
+        return completed;
     }
 }
