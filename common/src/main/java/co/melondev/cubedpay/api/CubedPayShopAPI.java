@@ -77,6 +77,9 @@ public interface CubedPayShopAPI {
     @POST("/shop/{sid}/transaction")
     CompletableFuture<Transaction> createTransaction(@Path("sid") String shopId, @Query("customer") String customer, @Query("profile") String profile, @Body Items items);
 
+    @POST("/shop/{sid}/transaction/{tid}/execute")
+    CompletableFuture<Transaction> executeTransaction(@Path("sid") String shopId, @Query("tid") String transactionId);
+
     @PUT("/shop/{sid}/transaction/{tid}/discount")
     CompletableFuture<Transaction> setTransactionDiscount(@Path("sid") String shopId, @Path("tid") String transactionId, @Query("discount") String discountCode);
 
