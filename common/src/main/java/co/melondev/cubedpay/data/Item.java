@@ -1,7 +1,10 @@
 package co.melondev.cubedpay.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Item {
 
+    @SerializedName("package")
     private String id = "";
     private Integer quantity = 0;
 
@@ -10,6 +13,11 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public String getPackage() {
+        return id;
+    }
+
+    @Deprecated
     public String getId() {
         return id;
     }
