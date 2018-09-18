@@ -17,6 +17,11 @@ public class Item {
         return id;
     }
 
+    @Deprecated
+    public String getId() {
+        return id;
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
