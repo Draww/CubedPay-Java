@@ -35,8 +35,8 @@ To listen to store events you can call `CubedPayAPI#startEvents(String shopId)` 
 `CubedPayAPI#registerListener(Object listener)`. Events will called with methods that conform to the following format:
 ```java
 public class Test {
-    @PaymentHandler
-    public void handle(PurchasedEvent event) {
+    @CubedEventHandler
+    public void onTransactionCompleted(TransactionCompletedEvent event) {
         //Your code here...
     }
 }
@@ -55,7 +55,7 @@ public class PaymentRequest {
       CubedPayAPI cubedpay = new CubedPayAPI("app_XXXXXXXXXXXXX", "oauth_XXXXXXXXXXXX");
       cubedpay.getShopAPI().getPackages(shopID, 1, 10)
                       .thenCompose(packages -> api.getShopAPI().createTransaction(shopID, "user@user.com",
-                              new Item(packages.getData().get(0).getId(), 1)))
+                              "profile", new Item(packages.getData().get(0).getId(), 1)))
                       .thenAccept(transaction -> System.out.println("Payment Url: https://app.cubedpay.com/checkout/" + transaction.getId()))
                       .exceptionally(throwable -> {
                           throwable.printStackTrace();
@@ -74,15 +74,16 @@ To handle things that go badly:
 ```java
 .exceptionally(throwable -> {
     throwable.printStackTrace();
+    return null;
 });
 ```
 
 Easy!
 
-### Bukkit Plugin
-You can find the bukkit plugin code inside the `bukkit` folder.
+### Minecraft: Java Edition Plugins
+We currently support three of the most commonly-used Minecraft: Java Edition server software available: Bukkit/Spigot, BungeeCord, and Sponge. You can find the code for each of these plugins in their respective modules.
 
-The bukkit plugin will create a config on start that you need to fill in with your credentials from the panel. Every 
+Our plugins will create a config on start that you need to fill in with your credentials from the panel. Every 
 store that you add to the config will auto start the event system so all your need to do in your other plugins is 
 register your event listeners.
 
