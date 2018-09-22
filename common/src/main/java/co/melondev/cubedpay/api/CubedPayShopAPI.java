@@ -171,13 +171,13 @@ public interface CubedPayShopAPI {
     @DELETE("/shop/{sid}/sale/{sale}")
     CompletableFuture<DeleteConfirmation> deleteSale(@Path("sid") String shopId, @Path("sale") String saleId);
 
-    @GET("/shop/{sid}/sale/{sale}/packageRef")
+    @GET("/shop/{sid}/sale/{sale}/packageref")
     CompletableFuture<Cursor<ShopSalePackageRef>> getSalePackageRefs(@Path("sid") String shopId, @Path("sale") String saleId, @Query("page") int page, @Query("perpage") int perPage);
 
-    @POST("/shop/{sid}/sale/{sale}/packageRef")
+    @POST("/shop/{sid}/sale/{sale}/packageref")
     CompletableFuture<ShopSalePackageRef> addPackageRefToSale(@Path("sid") String shopId, @Path("sale") String saleId, @Query("type") ShopPackageRef.Type type, @Query("data") String data);
 
-    @DELETE("/shop/{sid}/sale/{sale}/packageRef/{prid}")
+    @DELETE("/shop/{sid}/sale/{sale}/packageref/{prid}")
     CompletableFuture<DeleteConfirmation> removePackageRefFromSale(@Path("sid") String shopId, @Path("sale") String saleId, @Path("prid") String packageRefId);
     //endregion
 
@@ -197,13 +197,13 @@ public interface CubedPayShopAPI {
     @DELETE("/shop/{sid}/discount/{discount}")
     CompletableFuture<DeleteConfirmation> deleteDiscount(@Path("sid") String shopId, @Path("discount") String saleId);
 
-    @GET("/shop/{sid}/discount/{discount}/packageRef")
+    @GET("/shop/{sid}/discount/{discount}/packageref")
     CompletableFuture<Cursor<ShopDiscountPackageRef>> getDiscountPackageRefs(@Path("sid") String shopId, @Path("discount") String discountId, @Query("page") int page, @Query("perpage") int perPage);
 
-    @POST("/shop/{sid}/discount/{discount}/packageRef")
+    @POST("/shop/{sid}/discount/{discount}/packageref")
     CompletableFuture<ShopDiscountPackageRef> addPackageRefToDiscount(@Path("sid") String shopId, @Path("discount") String discountId, @Query("type") ShopPackageRef.Type type, @Query("data") String data);
 
-    @DELETE("/shop/{sid}/discount/{discount}/packageRef/{prid}")
+    @DELETE("/shop/{sid}/discount/{discount}/packageref/{prid}")
     CompletableFuture<DeleteConfirmation> removePackageRefFromDiscount(@Path("sid") String shopId, @Path("discount") String discountId, @Path("prid") String packageRefId);
     //endregion
 
