@@ -15,7 +15,7 @@ public class ShopPackageRef {
 
     private String id;
     private Type type;
-    private ShopPackage shopPackage;
+    private String data;
 
     public String getId() {
         return id;
@@ -25,7 +25,8 @@ public class ShopPackageRef {
         return type;
     }
 
-    public ShopPackage getShopPackage() {
-        return shopPackage;
+    public String getShopPackage() {
+        return data;
     }
+
 }
