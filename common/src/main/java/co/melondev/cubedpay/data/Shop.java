@@ -17,6 +17,7 @@ public class Shop {
     private List<User> members = new ArrayList<>();
     private List<Gateway> gateways = new ArrayList<>();
     private ShopPlan plan;
+    private Currency currency;
 
     public String getId() {
         return id;
@@ -64,6 +65,10 @@ public class Shop {
 
     public ShopPlan getPlan() {
         return plan;
+    }
+
+    public Currency getCurrency() {
+        return currency;
     }
 
     @Override
