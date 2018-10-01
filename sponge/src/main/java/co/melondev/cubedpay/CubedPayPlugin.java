@@ -50,9 +50,9 @@ public class CubedPayPlugin {
                     ex.printStackTrace();
                 }
 
-                config.getNode("appId").setValue("");
-                config.getNode("accessToken").setValue("");
-                config.getNode("shops").setValue(new TypeToken<ArrayList<String>>() {}, new ArrayList<>());
+                config.getNode("appId").setComment("Paste the text under the \"Public Identifier\" section of your store's \"Integrations\" tab.").setValue("");
+                config.getNode("accessToken").setComment("Paste the text under the \"Store Secret\" section of your store's \"Integrations\" tab.").setValue("");
+                config.getNode("shops").setComment("Paste the text under the \"Store ID\" section of your store's \"Integrations\" tab.").setValue(new TypeToken<ArrayList<String>>() {}, new ArrayList<>());
 
                 try {
                     configManager.save(config);

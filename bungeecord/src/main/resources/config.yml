@@ -1,4 +1,27 @@
+# +--------------------------------------------------------+
+# |    The following information can be found by going     |
+# |         to https://app.cubedpay.com/, clicking         |
+# |      on "Webstore Settings", and then by clicking      |
+# |                     "Integrations"                     |
+# +--------------------------------------------------------+
+
+# Paste the text under the "Public Identifier" section.
+# This text should begin with "app_"
 appId: ''
+
+# Paste the text under the "Store Secret" section.
+# This text should begin with "oauth_"
+#
+# NOTE: This code should be treated like a password!
+#       If it falls into the wrong hands, others may be
+#       able to make unwanted changes to your store!
 accessToken: ''
+
+# Paste the text under the "Store ID" section.
+# This text should begin with "shop_"
+#
+# NOTE: While we support multiple stores, it is
+#       recommended that only advanced users add
+#       more than one.
 shops:
   - ''
