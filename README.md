@@ -5,6 +5,9 @@ Java client for the CubedPay API.
 
 The client is separated into different modules: the main java library and multiple plugins for Minecraft: Java Edition.
 
+* Downlaod the library: [Releases](https://github.com/MelonDevelopment/CubedPay-Java/releases)
+* Looking for more features? Try [CubedPay Control Panel](https://github.com/MelonDevelopment/CubedPay-Control-Panel/releases).
+
 ## Getting Your Keys
 It's easy to get the keys you need:
 
