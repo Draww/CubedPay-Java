@@ -18,10 +18,10 @@ public class Transaction {
     private String id;
     private Status status;
     private PublicUser user;
-    private UserProfile profile;
     private PublicShop shop;
     private ShopDiscount discount;
     private String amount;
+    private String profile;
     private String created;
     private String completed;
 
@@ -37,10 +37,6 @@ public class Transaction {
         return user;
     }
 
-    public UserProfile getProfile() {
-        return profile;
-    }
-
     public PublicShop getShop() {
         return shop;
     }
@@ -51,6 +47,10 @@ public class Transaction {
 
     public String getAmount() {
         return amount;
+    }
+
+    public String getProfile() {
+        return profile;
     }
 
     public String getCreated() {
