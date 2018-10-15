@@ -5,7 +5,7 @@
     <parent>
         <groupId>co.melondev</groupId>
         <artifactId>CubedPay</artifactId>
-        <version>0.4.6</version>
+        <version>0.5</version>
     </parent>
 
     <artifactId>CubedPay-sponge</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>co.melondev</groupId>
             <artifactId>CubedPay-common</artifactId>
-            <version>0.4.6</version>
+            <version>0.5</version>
         </dependency>
         <dependency>
             <groupId>org.spongepowered</groupId>

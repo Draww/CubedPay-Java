@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Plugin(id = "cubedpayplugin", name = "CubedPayPlugin", version = "0.4.5", authors = {"Melon Development"}, url = "https://cubedpay.com/")
+@Plugin(id = "cubedpayplugin", name = "CubedPayPlugin", version = "0.5", authors = {"Melon Development"}, url = "https://cubedpay.com/")
 public class CubedPayPlugin {
 
     private static CubedPayAPI api;

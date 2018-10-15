@@ -1,8 +1,11 @@
 package co.melondev.cubedpay.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ShopTheme {
 
     private String id;
+    @SerializedName("default")
     private boolean isDefault;
     private String name;
     private String css;

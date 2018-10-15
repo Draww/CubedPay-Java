@@ -7,7 +7,8 @@ import java.util.Arrays;
 public class ShopPage {
 
     public enum Type {
-        BASIC;
+        BASIC,
+        SMART;
 
         public static Type findById(String id) {
             return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))

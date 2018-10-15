@@ -11,7 +11,8 @@ public class ShopSidebarModule {
         HTML,
         PROMOTED,
         CART,
-        ACCOUNT;
+        ACCOUNT,
+        TEXT;
 
         public static Type findById(String id) {
             return Arrays.stream(values()).filter(status -> status.name().equalsIgnoreCase(id))

@@ -155,6 +155,20 @@ public interface CubedPayShopAPI {
     CompletableFuture<ShopTheme> setShopTheme(@Path("sid") String shopId, @Query("theme") String themeId);
     //endregion
 
+    //region Colors
+    @GET("/shop/{sid}/colors")
+    CompletableFuture<Cursor<ShopColors>> getShopColors(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perPage);
+
+    @PUT("/shop/{sid}/colors")
+    CompletableFuture<ShopColors> setShopColors(@Path("sid") String shopId, @Query("colors") String colorId);
+
+    @POST("/shop/{sid}/colors")
+    CompletableFuture<ShopColors> createShopColors(@Path("sid") String shopId, @Query("data") String colorData, @Query("name") String name, @Query("activate") boolean activate);
+
+    @POST("/shop/{sid}/colors/{cid}/update")
+    CompletableFuture<ShopColors> updateShopColors(@Path("sid") String shopId, @Path("cid") String colorId);
+    //endregion
+
     //region Sales
     @GET("/shop/{sid}/sale")
     CompletableFuture<Cursor<ShopSale>> getSales(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perPage);

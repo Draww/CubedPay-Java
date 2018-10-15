@@ -12,6 +12,7 @@ public class User {
     private String firstName = "";
     private String lastName = "";
     private String email = "";
+    private UploadedImage avatar = new UploadedImage();
     private Date memberSince = new Date();
     private List<UserProfile> profiles = new ArrayList<>();
 
@@ -33,6 +34,10 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public UploadedImage getAvatar() {
+        return avatar;
     }
 
     public Date getMemberSince() {

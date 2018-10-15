@@ -24,13 +24,18 @@ public class PublicShop {
 
     private String id;
     private String url;
+    private String custom_url;
     private String name;
     private UploadedImage logo;
-    private boolean sandboxMode;
+    private boolean sandbox_mode;
     private ShopTheme theme;
+    private String template;
     private String homeText;
+    private ShopPlan plan;
     private List<PublicGateway> activeGateways;
     private List<ShopSale> activeSales;
+    private ShopColors colors;
+    private Currency currency;
 
     public String getId() {
         return id;
@@ -38,6 +43,10 @@ public class PublicShop {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getCustomUrl() {
+        return custom_url;
     }
 
     public String getName() {
@@ -49,15 +58,23 @@ public class PublicShop {
     }
 
     public boolean isSandboxMode() {
-        return sandboxMode;
+        return sandbox_mode;
     }
 
     public ShopTheme getTheme() {
         return theme;
     }
 
+    public String getTemplate() {
+        return template;
+    }
+
     public String getHomeText() {
         return homeText;
+    }
+
+    public ShopPlan getPlan() {
+        return plan;
     }
 
     public List<PublicGateway> getActiveGateways() {
@@ -67,4 +84,9 @@ public class PublicShop {
     public List<ShopSale> getActiveSales() {
         return activeSales;
     }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
 }

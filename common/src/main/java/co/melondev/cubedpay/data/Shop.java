@@ -7,15 +7,21 @@ public class Shop {
 
     private String id = "";
     private String url = "";
+    private String customUrl = "";
     private String name = "";
     private UploadedImage logo = new UploadedImage();
     private boolean active = false;
     private boolean disabled = false;
+    private boolean sandbox_mode = true;
     private String disabled_reason = "";
     private Game game = new Game();
     private String time_zone = "";
+    private String template = "";
+    private String home_text = "";
     private List<User> members = new ArrayList<>();
     private List<Gateway> gateways = new ArrayList<>();
+    private ShopTheme theme;
+    private ShopColors colors;
     private ShopPlan plan;
     private Currency currency;
 
@@ -25,6 +31,10 @@ public class Shop {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getCustomUrl() {
+        return customUrl;
     }
 
     public String getName() {
@@ -43,6 +53,10 @@ public class Shop {
         return disabled;
     }
 
+    public boolean isSandboxMode() {
+        return sandbox_mode;
+    }
+
     public String getDisabledReason() {
         return disabled_reason;
     }
@@ -55,8 +69,24 @@ public class Shop {
         return time_zone;
     }
 
+    public String getTemplate() {
+        return template;
+    }
+
+    public String getHomeText() {
+        return home_text;
+    }
+
     public List<User> getMembers() {
         return members;
+    }
+
+    public ShopTheme getTheme() {
+        return theme;
+    }
+
+    public ShopColors getColors() {
+        return colors;
     }
 
     public List<Gateway> getGateways() {
