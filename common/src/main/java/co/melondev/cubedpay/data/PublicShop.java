@@ -31,9 +31,11 @@ public class PublicShop {
     private ShopTheme theme;
     private String template;
     private String homeText;
+    private ShopTemplateMeta template_meta;
     private ShopPlan plan;
     private List<PublicGateway> activeGateways;
     private List<ShopSale> activeSales;
+    private List<ShopMedia> assets;
     private ShopColors colors;
     private Currency currency;
 
@@ -73,6 +75,10 @@ public class PublicShop {
         return homeText;
     }
 
+    public ShopTemplateMeta getTemplateMeta() {
+        return template_meta;
+    }
+
     public ShopPlan getPlan() {
         return plan;
     }
@@ -83,6 +89,10 @@ public class PublicShop {
 
     public List<ShopSale> getActiveSales() {
         return activeSales;
+    }
+
+    public List<ShopMedia> getAssets() {
+        return assets;
     }
 
     public Currency getCurrency() {

@@ -20,6 +20,8 @@ public class Shop {
     private String home_text = "";
     private List<User> members = new ArrayList<>();
     private List<Gateway> gateways = new ArrayList<>();
+    private List<ShopMedia> assets = new ArrayList<>();
+    private ShopTemplateMeta template_meta;
     private ShopTheme theme;
     private ShopColors colors;
     private ShopPlan plan;
@@ -79,6 +81,14 @@ public class Shop {
 
     public List<User> getMembers() {
         return members;
+    }
+
+    public ShopTemplateMeta getTemplateMeta() {
+        return template_meta;
+    }
+
+    public List<ShopMedia> getAssets() {
+        return assets;
     }
 
     public ShopTheme getTheme() {

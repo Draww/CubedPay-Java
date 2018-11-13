@@ -29,6 +29,7 @@ public class ShopPackage {
     private String price;
     @SerializedName("is_public")
     private boolean isPublic;
+    private boolean has_conditions;
     private Sale sale;
 
     public String getId() {
@@ -53,6 +54,10 @@ public class ShopPackage {
 
     public boolean isPublic() {
         return isPublic;
+    }
+
+    public boolean hasConditions() {
+        return has_conditions;
     }
 
     public Sale getSale() {

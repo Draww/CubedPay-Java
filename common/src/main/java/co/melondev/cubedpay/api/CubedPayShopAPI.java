@@ -2,6 +2,9 @@ package co.melondev.cubedpay.api;
 
 import co.melondev.cubedpay.data.*;
 import co.melondev.cubedpay.data.common.Cursor;
+import co.melondev.cubedpay.data.statistics.PopularPackage;
+import co.melondev.cubedpay.data.statistics.RecentPurchase;
+import co.melondev.cubedpay.data.statistics.TopPurchaser;
 import retrofit2.http.*;
 
 import java.io.File;
@@ -63,6 +66,20 @@ public interface CubedPayShopAPI {
     CompletableFuture<DeleteConfirmation> deletePackage(@Path("sid") String shopId, @Path("pid") String packageId);
     //endregion
 
+    //region Package Conditions
+    @POST("/shop/{sid}/package/{pid}/condition")
+    CompletableFuture<ShopPackageCondition> createShopPackageCondition(@Path("sid") String shopId, @Path("pid") String packageId, @Query("type") ShopPackageCondition.Type type, @Query("data") String queryPackageId);
+
+    @DELETE("/shop/{sid}/package/{pid}/condition/{cid}")
+    CompletableFuture<DeleteConfirmation> deleteShopPackageCondition(@Path("sid") String shopId, @Path("pid") String packageId, @Path("cid") String conditionId);
+
+    @GET("/shop/{sid}/package/{pid}/condition")
+    CompletableFuture<List<ShopPackageCondition>> getShopPackageConditions(@Path("sid") String shopId, @Path("pid") String packageId);
+
+    @PATCH("/shop/{sid}/package/{pid}/condition/{cid}")
+    CompletableFuture<ShopPackageCondition> updateShopPackageCondition(@Path("sid") String shopId, @Path("pid") String packageId, @Path("cid") String conditionId, @Query("type") ShopPackageCondition.Type type, @Query("data") String queryPackageId);
+    //endregion
+
     //region Transactions
     @GET("/shop/{sid}/transaction")
     CompletableFuture<Cursor<Transaction>> getTransactions(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perPage);
@@ -106,10 +123,10 @@ public interface CubedPayShopAPI {
     CompletableFuture<ShopPage> getPage(@Path("sid") String shopId, @Path("pid") String pageId);
 
     @POST("/shop/{sid}/page")
-    CompletableFuture<ShopPage> createPage(@Path("sid") String shopId, @Query("name") String name, @Query("description") String description, @Query("public") boolean isPublic, @Query("type") ShopPage.Type type, @Query("display") ShopPage.Display display, @Query("order") int order);
+    CompletableFuture<ShopPage> createPage(@Path("sid") String shopId, @Query("name") String name, @Query("description") String description, @Query("public") boolean isPublic, @Query("type") ShopPage.Type type, @Query("display") ShopPage.Display display, @Query("order") int order, @Query("meta") ShopPage.Meta pageMeta);
 
     @PATCH("/shop/{sid}/page/{pid}")
-    CompletableFuture<ShopPage> updatePage(@Path("sid") String shopId, @Path("pid") String pageId, @Query("name") String name, @Query("description") String description, @Query("public") boolean isPublic, @Query("type") ShopPage.Type type, @Query("display") ShopPage.Display display, @Query("order") int order);
+    CompletableFuture<ShopPage> updatePage(@Path("sid") String shopId, @Path("pid") String pageId, @Query("name") String name, @Query("description") String description, @Query("public") boolean isPublic, @Query("type") ShopPage.Type type, @Query("display") ShopPage.Display display, @Query("order") int order, @Query("meta") ShopPage.Meta pageMeta);
 
     @DELETE("/shop/{sid}/page/{pid}")
     CompletableFuture<DeleteConfirmation> deletePage(@Path("sid") String shopId, @Path("pid") String pageId);
@@ -153,6 +170,18 @@ public interface CubedPayShopAPI {
 
     @PUT("/shop/{sid}/theme")
     CompletableFuture<ShopTheme> setShopTheme(@Path("sid") String shopId, @Query("theme") String themeId);
+    //endregion
+
+    //region Assets
+    @DELETE("/shop/{sid}/asset/{aid}")
+    CompletableFuture<DeleteConfirmation> deleteShopMedia(@Path("sid") String shopId, @Path("aid") String mediaId);
+
+    @POST("/shop/{sid}/asset/{aid}")
+    CompletableFuture<ShopMedia> getShopMedia(@Path("sid") String shopId, @Path("aid") String mediaId);
+
+    @GET("/shop/{sid}/asset")
+    CompletableFuture<Cursor<ShopMedia>> listShopMedia(@Path("sid") String shopId, @Query("page") int page, @Query("perpage") int perPage);
+
     //endregion
 
     //region Colors
@@ -219,6 +248,17 @@ public interface CubedPayShopAPI {
 
     @DELETE("/shop/{sid}/discount/{discount}/packageref/{prid}")
     CompletableFuture<DeleteConfirmation> removePackageRefFromDiscount(@Path("sid") String shopId, @Path("discount") String discountId, @Path("prid") String packageRefId);
+    //endregion
+
+    //region Statistics
+    @GET("/shop/{sid}/statistics/recent_purchase")
+    CompletableFuture<List<RecentPurchase>> getRecentPurchases(@Path("sid") String shopId, @Query("limit") int amount);
+
+    @GET("/shop/{sid}/statistics/top_purchaser")
+    CompletableFuture<List<TopPurchaser>> getTopPurchasers(@Path("sid") String shopId, @Query("limit") int amount);
+
+    @GET("/shop/{sid}/statistics/most_popular")
+    CompletableFuture<List<PopularPackage>> getMostPopularPackages(@Path("sid") String shopId, @Query("limit") int amount);
     //endregion
 
     //region Support
