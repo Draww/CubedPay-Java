@@ -1,11 +1,17 @@
 package co.melondev.cubedpay.data;
 
+import java.util.Arrays;
+
 public class ShopPackageCondition {
 
     public enum Type {
+        BROUGHT_ANY,
+        BROUGHT;
 
-        BROUGHT_ANY, BROUGHT
-
+        public static Type findById(String id) {
+            return Arrays.stream(values()).filter(type -> type.name().equalsIgnoreCase(id))
+                    .findFirst().orElse(null);
+        }
     }
 
     private String id;

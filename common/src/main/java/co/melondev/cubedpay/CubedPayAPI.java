@@ -39,6 +39,8 @@ public class CubedPayAPI {
                     Transaction.Status.findById(json.getAsString()))
             .registerTypeAdapter(SupportTicket.Status.class, (JsonDeserializer<SupportTicket.Status>) (json, typeOfT, context) ->
                     SupportTicket.Status.findById(json.getAsString()))
+            .registerTypeAdapter(ShopPackageCondition.Type.class, (JsonDeserializer<ShopPackageCondition.Type>) (json, typeOfT, context) ->
+                    ShopPackageCondition.Type.findById(json.getAsString()))
             .registerTypeAdapter(ShopSidebarModule.Side.class, (JsonDeserializer<ShopSidebarModule.Side>) (json, typeOfT, context) ->
                     ShopSidebarModule.Side.findById(json.getAsString()))
             .registerTypeAdapter(ShopSidebarModule.Type.class, (JsonDeserializer<ShopSidebarModule.Type>) (json, typeOfT, context) ->
